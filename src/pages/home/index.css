@@ -1,0 +1,11 @@
+.home__hero {
+	height: 560px;
+	max-height: 560px;
+	background-image: url("../../assets/images/Hero.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.home__hero-sneakers {
+	font-family: "Playfair Display", serif;
+}
