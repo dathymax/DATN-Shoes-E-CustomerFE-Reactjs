@@ -8,13 +8,13 @@ const HomePageHero = () => {
             <div className="container m-auto h-full pt-16">
                 <p className="home__hero-sneakers text-[96px]">Sneakers -</p>
                 <p className="text-[96px]">Flash Sale</p>
-                <p className="text-[20px]">
-                    Trở nên khác biệt với bộ sưu tập giày Nike
+                <p className="text-[20px] mt-4">
+                    Be different with the Nike shoe collection
                 </p>
                 <div className="h-[60px]"></div>
                 <Button type="primary" style={{ width: "290px", height: 50 }}>
                     <p className="flex items-center justify-center gap-3">
-                        Khám phá ngay
+                        Explore now
                         <img
                             src={ArrowRight}
                             alt="ArrowRight"
