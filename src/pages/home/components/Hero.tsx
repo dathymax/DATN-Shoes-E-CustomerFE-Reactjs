@@ -5,14 +5,14 @@ import ArrowRight from "../../../assets/images/ArrowRight.png";
 const HomePageHero = () => {
     return (
         <div className="home__hero text-white">
-            <div className="container m-auto h-full">
+            <div className="container m-auto h-full pt-16">
                 <p className="home__hero-sneakers text-[96px]">Sneakers -</p>
                 <p className="text-[96px]">Flash Sale</p>
                 <p className="text-[20px]">
                     Trở nên khác biệt với bộ sưu tập giày Nike
                 </p>
                 <div className="h-[60px]"></div>
-                <Button type="primary" style={{ width: "290px" }}>
+                <Button type="primary" style={{ width: "290px", height: 50 }}>
                     <p className="flex items-center justify-center gap-3">
                         Khám phá ngay
                         <img

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import SaleNotification from "../../components/feedback/notification/sale";
 import Logo from "../../assets/images/Logo.png";
-import { Modal } from "antd";
+import { Input, Modal } from "antd";
 import Authenticate from "../../components/authenticate";
+import Navigation from "./components/navigation";
+import Heart from "../../assets/images/Heart.png";
+import Cart from "../../assets/images/Cart.png";
+import Search from "../../assets/images/Search.png";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
@@ -20,10 +24,21 @@ const Header = () => {
             <SaleNotification />
             <div className="bg-[var(--second-black)]">
                 <div className="container m-auto flex items-center justify-between py-[16px]">
-                    <div>
+                    <div className="flex items-center gap-10">
                         <img src={Logo} alt="Logo" />
+                        <Navigation />
                     </div>
-                    <div className="user__action">
+                    <div className="user__action flex items-center gap-5">
+                        <div className="flex items-center gap-2">
+                            <img src={Search} alt="Search" />
+                            <Input
+                                bordered={false}
+                                className="text-white placeholder:text-gray-400"
+                                placeholder="Search product"
+                            />
+                        </div>
+                        <img src={Heart} alt="Heart" />
+                        <img src={Cart} alt="Cart" />
                         <p
                             className="text-white cursor-pointer"
                             onClick={handleOpen}
@@ -39,8 +54,9 @@ const Header = () => {
                 onCancel={handleClose}
                 footer={null}
                 bodyStyle={{
-                    padding: 20,
+                    padding: "20px 20px 0 20px",
                 }}
+                destroyOnClose
             >
                 <Authenticate />
             </Modal>

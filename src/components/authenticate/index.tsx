@@ -1,9 +1,9 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form } from "antd";
 import React, { useState } from "react";
 import { IUser } from "../../types";
-import InputCustom from "../custom/data-entry/input/InputCustom";
 import { createUser } from "../../apis/user";
-import axios from "axios";
+import Login from "./login";
+import Register from "./register";
 
 const Authenticate = () => {
     const [type, setType] = useState("login");
@@ -25,21 +25,7 @@ const Authenticate = () => {
     return (
         <>
             <Form onFinish={onFinish} layout="vertical">
-                <Form.Item label={"First name"} name={"firstname"}>
-                    <InputCustom placeholder="Fist name" />
-                </Form.Item>
-
-                <Form.Item label={"First name"} name={"lastname"}>
-                    <InputCustom placeholder="Fist name" />
-                </Form.Item>
-
-                <Form.Item label={"First name"} name={"email"}>
-                    <InputCustom placeholder="Fist name" />
-                </Form.Item>
-
-                <Form.Item label={"First name"} name={"password"}>
-                    <InputCustom placeholder="Fist name" />
-                </Form.Item>
+                {type === "login" ? <Login /> : <Register />}
 
                 <Button
                     block
@@ -47,9 +33,33 @@ const Authenticate = () => {
                     style={{ height: 50 }}
                     htmlType="submit"
                 >
-                    Sign in
+                    {type === "login" ? "Sign in" : "Register"}
                 </Button>
             </Form>
+
+            <div className="text-center my-5">
+                {type === "login" ? (
+                    <>
+                        Don't have account yet?{" "}
+                        <span
+                            className="text-primary underline cursor-pointer"
+                            onClick={() => handleSetType("register")}
+                        >
+                            Register here
+                        </span>
+                    </>
+                ) : (
+                    <>
+                        Already have account yet?{" "}
+                        <span
+                            className="text-primary underline cursor-pointer"
+                            onClick={() => handleSetType("login")}
+                        >
+                            Sign-in here
+                        </span>
+                    </>
+                )}
+            </div>
         </>
     );
 };
