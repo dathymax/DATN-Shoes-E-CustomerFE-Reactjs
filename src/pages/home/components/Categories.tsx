@@ -49,7 +49,7 @@ const HomePageCategories = () => {
             <div className="grid grid-cols-12 gap-5">
                 {categories.map((category) => {
                     return (
-                        <div className="col-span-4">
+                        <div key={category.name} className="col-span-4">
                             <ProductCategory
                                 name={category.name}
                                 quantity={category.quantity}

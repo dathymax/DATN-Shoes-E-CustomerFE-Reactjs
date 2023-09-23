@@ -48,7 +48,7 @@ const HomePageBestSelling = () => {
         <ProductCarosel
             title="Best selling"
             extra={
-                <Link to={"/"} className="text-[12px]">
+                <Link to={"/"} className="text-[12px] text-primary">
                     View more
                 </Link>
             }
@@ -57,6 +57,7 @@ const HomePageBestSelling = () => {
                     key: item.id,
                     content: (
                         <ProductCard
+                            key={item.id}
                             img={item.img}
                             name={item.name}
                             price={item.price}

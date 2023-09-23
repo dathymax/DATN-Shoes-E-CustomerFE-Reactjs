@@ -6,7 +6,7 @@ const HomePageGallery = () => {
     return (
         <div>
             <div className="flex items-center justify-between mb-5">
-                <h3>Gallery</h3>
+                <h3 className="font-medium">Gallery</h3>
                 <span className="text-primary text-[12px]">View more</span>
             </div>
 

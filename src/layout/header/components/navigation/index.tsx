@@ -7,26 +7,26 @@ const navItems = [
     {
         key: "newArrived",
         label: (
-            <p className="flex items-center justify-center gap-1">
+            <p className="flex items-center justify-center gap-1 text-white">
                 New Arrived <img src={Fire} alt="Fire" className="mb-1" />
             </p>
         ),
         href: "new-arrived",
     },
     {
-        key: "newArrived",
+        key: "men",
         label: <>Men</>,
-        href: "new-arrived",
+        href: "men",
     },
     {
-        key: "newArrived",
+        key: "women",
         label: <>Women</>,
-        href: "new-arrived",
+        href: "women",
     },
     {
-        key: "newArrived",
+        key: "kids",
         label: <>Kids</>,
-        href: "new-arrived",
+        href: "kids",
     },
 ] as { key: string; label: React.ReactNode; href: string }[];
 

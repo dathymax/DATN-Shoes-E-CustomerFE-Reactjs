@@ -5,6 +5,8 @@ import HomePageBestSelling from "./components/BestSelling";
 import HomePageCategories from "./components/Categories";
 import Native from "../../assets/images/Native.png";
 import HomePageGallery from "./components/Gallery";
+import HomePageNews from "./components/News";
+import HomePageTreatment from "./components/Treatment";
 
 const HomePage = () => {
     return (
@@ -26,6 +28,11 @@ const HomePage = () => {
                 <HomePageBestSelling />
                 <div className="h-[70px]"></div>
                 <HomePageGallery />
+                <div className="h-[70px]"></div>
+                <HomePageNews />
+                <div className="h-[70px]"></div>
+                <HomePageTreatment />
+                <div className="h-[70px]"></div>
             </div>
         </div>
     );
