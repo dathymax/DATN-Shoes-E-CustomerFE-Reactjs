@@ -12,8 +12,12 @@ const HomePageHero = () => {
                     Be different with the Nike shoe collection
                 </p>
                 <div className="h-[60px]"></div>
-                <Button type="primary" style={{ width: "290px", height: 50 }}>
-                    <p className="flex items-center justify-center gap-3">
+                <Button
+                    href="/products"
+                    type="primary"
+                    style={{ width: "290px", height: 50 }}
+                >
+                    <p className="h-full flex items-center justify-center gap-3">
                         Explore now
                         <img
                             src={ArrowRight}

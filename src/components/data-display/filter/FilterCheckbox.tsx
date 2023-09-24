@@ -31,9 +31,8 @@ const FilterCheckbox: FC<FilterCheckboxProps> = ({ title, items }) => {
             <h2 className="mb-3">{title}</h2>
             {items.map((item) => {
                 return (
-                    <li className="my-2">
+                    <li key={item.value} className="my-2">
                         <Checkbox
-                            value={item.value}
                             key={item.value}
                             onChange={(e) => onChangeParams(e.target.value)}
                         >
