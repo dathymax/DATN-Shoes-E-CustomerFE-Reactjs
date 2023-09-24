@@ -5,8 +5,8 @@ import { Input, Modal } from "antd";
 import Authenticate from "../../components/authenticate";
 import Navigation from "./components/navigation";
 import Heart from "../../assets/images/Heart.png";
-import Cart from "../../assets/images/Cart.png";
 import Search from "../../assets/images/Search.png";
+import HeaderCart from "./components/navigation/Cart";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
@@ -38,7 +38,7 @@ const Header = () => {
                             />
                         </div>
                         <img src={Heart} alt="Heart" />
-                        <img src={Cart} alt="Cart" />
+                        <HeaderCart />
                         <p
                             className="text-white cursor-pointer"
                             onClick={handleOpen}

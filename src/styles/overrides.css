@@ -1,0 +1,8 @@
+.ant-drawer .ant-drawer-header {
+    border: none;
+    padding: 15px 10px;
+}
+
+.ant-drawer-header-title {
+    flex-direction: row-reverse;
+}
