@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const Content = () => {
     return (
-        <section className='max-w-screen'>
+        <section className='max-w-screen' style={{ minHeight: "calc(100vh - 112px" }}>
             <Outlet />
         </section>
     )

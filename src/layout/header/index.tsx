@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import SaleNotification from "../../components/feedback/notification/sale";
 import Logo from "../../assets/images/Logo.png";
-import { Input, Modal } from "antd";
+import { Dropdown, Input, Modal, Spin } from "antd";
 import Authenticate from "../../components/authenticate";
 import Navigation from "./components/navigation";
 import Heart from "../../assets/images/Heart.png";
 import Search from "../../assets/images/Search.png";
 import HeaderCart from "./components/navigation/Cart";
 import { useAppContext } from "../../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
+import { getUserEmail } from "../../helpers";
+import { logout } from "../../apis/auth";
 
 const Header = () => {
-    const { openAuthen: open, setOpenAuthen: setOpen } = useAppContext();
+    const userEmail = getUserEmail();
+    const navigate = useNavigate();
+    const { loading, openAuthen: open, setOpenAuthen: setOpen } = useAppContext();
+    const items = [
+        {
+            label: 'Logout',
+            key: 'logout',
+            danger: true,
+            onClick: () => {
+                logout();
+                navigate("/");
+            }
+        },
+    ];
 
     const handleOpen = () => {
         setOpen(true);
@@ -26,7 +42,7 @@ const Header = () => {
             <div className="bg-[var(--second-black)]">
                 <div className="container m-auto flex items-center justify-between py-[16px]">
                     <div className="flex items-center gap-10">
-                        <img src={Logo} alt="Logo" />
+                        <img src={Logo} alt="Logo" onClick={() => navigate("/")} className="cursor-pointer" />
                         <Navigation />
                     </div>
                     <div className="user__action flex items-center gap-5">
@@ -40,12 +56,19 @@ const Header = () => {
                         </div>
                         <img src={Heart} alt="Heart" />
                         <HeaderCart />
-                        <p
+                        {userEmail ? <Dropdown
+                            menu={{
+                                items,
+                            }}
+                            trigger={['click']}
+                        >
+                            <p className="text-white cursor-pointer">{userEmail}</p>
+                        </Dropdown> : <p
                             className="text-white cursor-pointer"
                             onClick={handleOpen}
                         >
                             Sign in
-                        </p>
+                        </p>}
                     </div>
                 </div>
             </div>
@@ -58,8 +81,11 @@ const Header = () => {
                     padding: "20px 20px 0 20px",
                 }}
                 destroyOnClose
+                maskClosable={!loading}
             >
-                <Authenticate />
+                <Spin spinning={loading}>
+                    <Authenticate />
+                </Spin>
             </Modal>
         </header>
     );

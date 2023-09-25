@@ -1,15 +1,14 @@
-import React from "react";
+import React from 'react'
 import Product from "../../../assets/images/Product.png";
-import ProductCounter from "../counter";
 
-const ProductCartQuickView = () => {
+const ProductCartOrdered = () => {
     return (
         <div className="grid grid-cols-3 gap-3">
-            <div className="col-span-1">
+            <div className="col-span-1 h-[200px]">
                 <img
                     src={Product}
                     alt="Product"
-                    className="h-[150px] w-full rounded-md object-cover"
+                    className="h-full w-full rounded-md object-cover"
                 />
             </div>
             <div className="col-span-2 flex items-center justify-between flex-col gap-2">
@@ -18,12 +17,11 @@ const ProductCartQuickView = () => {
                     <p className="font-medium">Nike template</p>
                 </div>
                 <div className="flex items-center justify-between w-full">
-                    <ProductCounter />
-                    <p>$ 400.00</p>
+                    43 | Black
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ProductCartQuickView;
+export default ProductCartOrdered

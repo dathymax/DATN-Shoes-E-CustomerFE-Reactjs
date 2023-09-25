@@ -7,7 +7,9 @@ const ProductCounter = () => {
         setCount((prev) => prev + 1);
     };
 
-    const deincrease = () => {};
+    const deincrease = () => {
+        setCount((prev) => prev - 1);
+    };
 
     return (
         <div

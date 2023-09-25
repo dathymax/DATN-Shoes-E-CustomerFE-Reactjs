@@ -3,6 +3,7 @@ import Cart from "../../../../assets/images/Cart.png";
 import { Button, Divider, Drawer } from "antd";
 import { useNavigate } from "react-router-dom";
 import ProductCartQuickView from "../../../../components/product/cart/QuickView";
+import ProductCartSubTotal from "../../../../components/product/cart/SubTotal";
 
 const HeaderCart = () => {
     const navigate = useNavigate();
@@ -31,13 +32,15 @@ const HeaderCart = () => {
                 onClose={handleClose}
                 open={open}
                 destroyOnClose
+                width={600}
             >
                 <div className="flex items-center justify-between">
                     <h3>Your cart</h3>
-                    <p className="text-red-600">Clear all</p>
+                    <p className="text-red-600 cursor-pointer">Clear all</p>
                 </div>
                 <Divider className="my-4" />
                 <ProductCartQuickView />
+                <ProductCartSubTotal />
                 <Divider className="my-4" />
                 <div className="flex items-center gap-5">
                     <Button

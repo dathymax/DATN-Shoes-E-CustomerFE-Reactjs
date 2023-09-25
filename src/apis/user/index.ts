@@ -8,3 +8,13 @@ export async function createUser(values: IUser) {
 
     return response || {};
 }
+
+export async function getUserByEmail(email: string) {
+    const params = {
+        email
+    }
+
+    const response = await Axios_instance.get(url, { params });
+
+    return response || {};
+}
