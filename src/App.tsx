@@ -6,8 +6,19 @@ import AllProductPage from "./pages/product";
 import MyShoppingCart from "./pages/cart";
 import ProductDetailPage from "./pages/product/id";
 import CheckoutPage from "./pages/checkout";
+import Authenticate from "./components/authenticate";
+import { useEffect } from "react";
+import { getAllShoes } from "./apis/shoe";
 
 function App() {
+
+
+    useEffect(() => {
+        getAllShoes().then(response => {
+            console.log(response.data)
+        }).catch(() => { })
+    }, [])
+
     return (
         <Routes>
             <Route element={<Layout />}>
@@ -20,6 +31,7 @@ function App() {
                 <Route path="/my-cart" element={<MyShoppingCart />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/*" element={<HomePage />} />
+                <Route path="/login" element={<div className="w-[30%] m-auto"><Authenticate /></div>} />
             </Route>
         </Routes>
     );

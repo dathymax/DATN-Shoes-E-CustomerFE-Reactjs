@@ -4,22 +4,51 @@ import { IUser } from "../../types";
 import { createUser } from "../../apis/user";
 import Login from "./login";
 import Register from "./register";
+import { login } from "../../apis/auth";
+import Cookies from "js-cookie";
+import { useAppContext } from "../../contexts/AppContext";
 
 const Authenticate = () => {
     const [type, setType] = useState("login");
+    const { setLoading, setOpenAuthen, openNotiSuccess, openNotiError } = useAppContext();
 
     const handleSetType = (type: string) => {
         setType(type);
     };
 
     const onFinish = (values: IUser) => {
-        createUser(values)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        setLoading(true);
+
+        if (type === "login") {
+            login(values)
+                .then((response) => {
+                    if (response.authentication.sessionToken) {
+                        localStorage.setItem("USER-AUTH", response.authentication.sessionToken);
+                        Cookies.set("USER-AUTH", response.authentication.sessionToken, {
+                            domain: "localhost",
+                        });
+
+                        setLoading(false);
+                        setOpenAuthen(false);
+                        openNotiSuccess("Login", `Hello ${values.email}`);
+                    }
+                })
+                .catch(() => {
+                    setLoading(false);
+                    openNotiError("Login");
+                });
+        } else {
+            createUser(values)
+                .then(() => {
+                    setLoading(false);
+                    setOpenAuthen(false);
+                    openNotiSuccess("Register");
+                })
+                .catch(() => {
+                    setLoading(false);
+                    openNotiError("Register");
+                });
+        }
     };
 
     return (

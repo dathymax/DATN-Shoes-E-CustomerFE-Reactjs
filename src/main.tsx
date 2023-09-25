@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
+import AppContextProvider from "./contexts/AppContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     },
                 }}
             >
-                <App />
+                <AppContextProvider>
+                    <App />
+                </AppContextProvider>
             </ConfigProvider>
         </BrowserRouter>
     </React.StrictMode>

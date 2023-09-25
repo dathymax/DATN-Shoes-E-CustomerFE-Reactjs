@@ -7,9 +7,10 @@ import Navigation from "./components/navigation";
 import Heart from "../../assets/images/Heart.png";
 import Search from "../../assets/images/Search.png";
 import HeaderCart from "./components/navigation/Cart";
+import { useAppContext } from "../../contexts/AppContext";
 
 const Header = () => {
-    const [open, setOpen] = useState(false);
+    const { openAuthen: open, setOpenAuthen: setOpen } = useAppContext();
 
     const handleOpen = () => {
         setOpen(true);
