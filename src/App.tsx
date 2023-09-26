@@ -8,6 +8,7 @@ import ProductDetailPage from "./pages/product/id";
 import CheckoutPage from "./pages/checkout";
 import Authenticate from "./components/authenticate";
 import WishlistPage from "./pages/wishlist";
+import ProfilePage from "./pages/profile";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/my-cart" element={<MyShoppingCart />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/*" element={<HomePage />} />
                 <Route path="/login" element={<div className="w-[30%] m-auto"><Authenticate /></div>} />
             </Route>
