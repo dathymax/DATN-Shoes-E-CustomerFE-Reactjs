@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import SaleNotification from "../../components/feedback/notification/sale";
 import Logo from "../../assets/images/Logo.png";
 import { Dropdown, Input, Modal, Spin } from "antd";
@@ -11,20 +11,37 @@ import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 import { getUserEmail } from "../../helpers";
 import { logout } from "../../apis/auth";
+import { AiOutlineUser } from "react-icons/ai";
 
 const Header = () => {
     const userEmail = getUserEmail();
     const navigate = useNavigate();
-    const { loading, openAuthen: open, setOpenAuthen: setOpen } = useAppContext();
+    const {
+        loading,
+        openAuthen: open,
+        setOpenAuthen: setOpen,
+    } = useAppContext();
     const items = [
         {
-            label: 'Logout',
-            key: 'logout',
+            label: userEmail,
+            key: "email",
+            onClick: () => navigate("/profile"),
+        },
+        { type: "divider" },
+        {
+            label: "My wishlist",
+            key: "my-wishlist",
+            onClick: () => navigate("/wishlist"),
+        },
+        { type: "divider" },
+        {
+            label: "Logout",
+            key: "logout",
             danger: true,
             onClick: () => {
                 logout();
                 navigate("/");
-            }
+            },
         },
     ];
 
@@ -42,7 +59,12 @@ const Header = () => {
             <div className="bg-[var(--second-black)]">
                 <div className="container m-auto flex items-center justify-between py-[16px]">
                     <div className="flex items-center gap-10">
-                        <img src={Logo} alt="Logo" onClick={() => navigate("/")} className="cursor-pointer" />
+                        <img
+                            src={Logo}
+                            alt="Logo"
+                            onClick={() => navigate("/")}
+                            className="cursor-pointer"
+                        />
                         <Navigation />
                     </div>
                     <div className="user__action flex items-center gap-5">
@@ -56,19 +78,25 @@ const Header = () => {
                         </div>
                         <img src={Heart} alt="Heart" />
                         <HeaderCart />
-                        {userEmail ? <Dropdown
-                            menu={{
-                                items,
-                            }}
-                            trigger={['click']}
-                        >
-                            <p className="text-white cursor-pointer">{userEmail}</p>
-                        </Dropdown> : <p
-                            className="text-white cursor-pointer"
-                            onClick={handleOpen}
-                        >
-                            Sign in
-                        </p>}
+                        {userEmail ? (
+                            <Dropdown
+                                menu={{
+                                    items,
+                                }}
+                                trigger={["click"]}
+                            >
+                                <p>
+                                    <AiOutlineUser className="text-white cursor-pointer text-[25px]" />
+                                </p>
+                            </Dropdown>
+                        ) : (
+                            <p
+                                className="text-white cursor-pointer"
+                                onClick={handleOpen}
+                            >
+                                Sign in
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>
