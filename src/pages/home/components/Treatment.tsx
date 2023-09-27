@@ -46,7 +46,7 @@ const HomePageTreatment = () => {
                 <img
                     src={FreeReturn}
                     alt="FreeReturn"
-                    className="rounded-lg w-full]"
+                    className="rounded-lg w-full"
                 />
                 <p className="font-medium my-3">Free Return</p>
                 <p className="text-gray-500 text-[13px]">
