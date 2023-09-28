@@ -21,8 +21,6 @@ const Axios_instance = axios.create({
 });
 
 Axios_instance.interceptors.request.use(config => {
-    config.headers["Authorization"] = token;
-
     return config;
 })
 

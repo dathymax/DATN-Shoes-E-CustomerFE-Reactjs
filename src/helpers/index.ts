@@ -24,3 +24,13 @@ export const getUserEmail = () => {
 
     return userEmail
 }
+
+export const getUserId = () => {
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+        return ""
+    }
+
+    return userId
+}

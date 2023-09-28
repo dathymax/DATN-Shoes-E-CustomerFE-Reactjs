@@ -9,11 +9,12 @@ import Search from "../../assets/images/Search.png";
 import HeaderCart from "./components/navigation/Cart";
 import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
-import { getUserEmail } from "../../helpers";
+import { getUserEmail, getUserId } from "../../helpers";
 import { logout } from "../../apis/auth";
 import { AiOutlineUser } from "react-icons/ai";
 
 const Header = () => {
+    const userId = getUserId();
     const userEmail = getUserEmail();
     const navigate = useNavigate();
     const {
@@ -25,7 +26,7 @@ const Header = () => {
         {
             label: userEmail,
             key: "email",
-            onClick: () => navigate("/profile"),
+            onClick: () => navigate(`/profile/${userId}`),
         },
         { type: "divider" },
         {

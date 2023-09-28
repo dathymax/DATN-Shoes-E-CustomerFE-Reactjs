@@ -24,6 +24,7 @@ function App() {
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/wishlist" element={<WishlistPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/:id" element={<ProfilePage />} />
                 <Route path="/*" element={<HomePage />} />
                 <Route path="/login" element={<div className="w-[30%] m-auto"><Authenticate /></div>} />
             </Route>

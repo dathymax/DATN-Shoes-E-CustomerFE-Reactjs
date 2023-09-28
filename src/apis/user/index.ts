@@ -9,12 +9,14 @@ export async function createUser(values: IUser) {
     return response || {};
 }
 
-export async function getUserByEmail(email: string) {
-    const params = {
-        email
-    }
+export async function updateUser(id: string, values: IUser) {
+    const response = await Axios_instance.patch(`${url}/${id}`, values);
 
-    const response = await Axios_instance.get(url, { params });
+    return response || {};
+}
+
+export async function getUserById(id: string) {
+    const response = await Axios_instance.get(`${url}/${id}`);
 
     return response || {};
 }

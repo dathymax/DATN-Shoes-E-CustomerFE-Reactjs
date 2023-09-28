@@ -23,6 +23,7 @@ const Authenticate = () => {
             login(values)
                 .then((response) => {
                     if (response.authentication.sessionToken) {
+                        localStorage.setItem("userId", response._id);
                         localStorage.setItem("userEmail", response.email);
                         localStorage.setItem("USER-AUTH", response.authentication.sessionToken);
                         Cookies.set("USER-AUTH", response.authentication.sessionToken, {
