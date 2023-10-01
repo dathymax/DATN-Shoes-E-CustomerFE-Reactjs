@@ -1,10 +1,23 @@
 import { Button, Divider, Modal } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddressContentItem from './items/Address'
 import AddressServices from './services/Address';
+import { useParams } from 'react-router-dom';
+import { AddressShippingApis } from '../../../apis/address-shipping';
+import { IAddressShipping } from '../../../types';
 
 const AddressContent = () => {
+    const { id } = useParams();
     const [open, setOpen] = useState(false);
+    const [addresses, setAddresses] = useState<IAddressShipping[]>([]);
+
+    useEffect(() => {
+        if (id) {
+            AddressShippingApis.getAddressShippingByUserId(id).then(response => {
+                setAddresses(response?.data);
+            })
+        }
+    }, [])
 
     const handleOpen = () => {
         setOpen(true);
@@ -23,7 +36,11 @@ const AddressContent = () => {
                 </Button>
             </div>
             <Divider />
-            <AddressContentItem id={"1"} />
+            {addresses.map(address => {
+                return (
+                    <AddressContentItem key={address._id} address={address} />
+                )
+            })}
 
             <Modal
                 open={open}

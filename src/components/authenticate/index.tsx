@@ -1,12 +1,11 @@
 import { Button, Form } from "antd";
 import React, { useState } from "react";
 import { IUser } from "../../types";
-import { createUser } from "../../apis/user";
 import Login from "./login";
 import Register from "./register";
 import { login } from "../../apis/auth";
-import Cookies from "js-cookie";
 import { useAppContext } from "../../contexts/AppContext";
+import { UserApis } from "../../apis/user";
 
 const Authenticate = () => {
     const [type, setType] = useState("login");
@@ -22,25 +21,18 @@ const Authenticate = () => {
         if (type === "login") {
             login(values)
                 .then((response) => {
-                    if (response.authentication.sessionToken) {
-                        localStorage.setItem("userId", response._id);
-                        localStorage.setItem("userEmail", response.email);
-                        localStorage.setItem("USER-AUTH", response.authentication.sessionToken);
-                        Cookies.set("USER-AUTH", response.authentication.sessionToken, {
-                            domain: "localhost",
-                        });
-
-                        setLoading(false);
-                        setOpenAuthen(false);
-                        openNotiSuccess("Login", `Hello ${values.email}`);
-                    }
+                    localStorage.setItem("accessToken", response);
+                    setLoading(false);
+                    setOpenAuthen(false);
+                    window.location.reload();
+                    openNotiSuccess("Login");
                 })
                 .catch(() => {
                     setLoading(false);
                     openNotiError("Login");
                 });
         } else {
-            createUser(values)
+            UserApis.createUser(values)
                 .then(() => {
                     setLoading(false);
                     setOpenAuthen(false);

@@ -1,15 +1,47 @@
-import { Button, Col, Form, Input, Row } from 'antd'
-import React, { FC } from 'react'
+import { Button, Col, Form, Input, Row, Select } from 'antd'
+import React, { FC, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { AddressShippingApis } from '../../../../apis/address-shipping'
+import { useAppContext } from '../../../../contexts/AppContext'
+import { IAddressShipping } from '../../../../types'
 
 interface IAddressServices {
-    id?: string
+    addressId?: string,
+    address?: IAddressShipping,
 }
 
-const AddressServices: FC<IAddressServices> = ({ id }) => {
+const AddressServices: FC<IAddressServices> = ({ addressId, address }) => {
+    const { id } = useParams();
     const [form] = Form.useForm();
+    const { openNotiError, openNotiSuccess } = useAppContext();
+
+    useEffect(() => {
+        if (address) {
+            form.setFieldsValue(address);
+        }
+    }, [])
 
     const onFinish = (values: any) => {
-        console.log(values);
+        values = {
+            ...values,
+            userId: id,
+        }
+
+        if (!addressId) {
+            AddressShippingApis.createAddressShipping(values).then(() => {
+                window.location.reload();
+                openNotiSuccess("Create address shipping")
+            }).catch(() => {
+                openNotiError("Create address shipping")
+            })
+        } else {
+            AddressShippingApis.updateAddressShipping(addressId, values).then(() => {
+                window.location.reload();
+                openNotiSuccess("Update address shipping")
+            }).catch(() => {
+                openNotiError("Update address shipping")
+            })
+        }
     }
 
     return (
@@ -22,7 +54,19 @@ const AddressServices: FC<IAddressServices> = ({ id }) => {
                 label={<p>Address label <span className='text-gray-500'>(Optional)</span></p>}
                 name="addressLabel"
             >
-                <Input placeholder='Eg. home or office' />
+                <Select
+                    options={[
+                        {
+                            label: "Home",
+                            value: "home"
+                        },
+                        {
+                            label: "Office",
+                            value: "office"
+                        },
+                    ]}
+                    placeholder='Eg. home or office'
+                />
             </Form.Item>
 
             <Form.Item
@@ -43,7 +87,7 @@ const AddressServices: FC<IAddressServices> = ({ id }) => {
                 <Col span={12}>
                     <Form.Item
                         label={"Province"}
-                        name="provice"
+                        name="province"
                     >
                         <Input placeholder='Your provice' />
                     </Form.Item>
@@ -80,7 +124,7 @@ const AddressServices: FC<IAddressServices> = ({ id }) => {
             </Row>
 
             <Button htmlType='submit' type='primary' block className='h-[40px]'>
-                {id ? "Edit" : "Save"}
+                {addressId ? "Edit" : "Save"}
             </Button>
         </Form>
     )

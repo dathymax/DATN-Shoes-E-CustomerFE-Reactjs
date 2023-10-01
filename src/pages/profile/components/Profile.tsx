@@ -1,8 +1,13 @@
 import { Button, Divider, Modal } from 'antd'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import ProfileServices from './services/Profile';
+import { IUser } from '../../../types';
 
-const ProfileContent = () => {
+interface ProfileContentProps {
+    user?: IUser
+}
+
+const ProfileContent: FC<ProfileContentProps> = ({ user }) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -35,13 +40,13 @@ const ProfileContent = () => {
             </div>
             <div className="grid grid-cols-6 text-black">
                 <div className="col-span-2">
-                    nguyen dat
+                    {`${user?.firstname} ${user?.lastname}`}
                 </div>
                 <div className="col-span-2">
-                    nguyendat@gmail.com
+                    {user?.email}
                 </div>
                 <div className="col-span-2">
-                    0987654321
+                    {user?.phoneNumber}
                 </div>
             </div>
 
@@ -53,7 +58,7 @@ const ProfileContent = () => {
                 footer={null}
                 centered
             >
-                <ProfileServices id="1" />
+                <ProfileServices user={user} id={user?._id} handleClose={handleClose} />
             </Modal>
         </div>
     )

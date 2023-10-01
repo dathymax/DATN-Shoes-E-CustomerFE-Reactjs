@@ -9,14 +9,13 @@ import Search from "../../assets/images/Search.png";
 import HeaderCart from "./components/navigation/Cart";
 import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
-import { getUserEmail, getUserId } from "../../helpers";
 import { logout } from "../../apis/auth";
 import { AiOutlineUser } from "react-icons/ai";
+import { getUserInfo } from "../../helpers";
 
 const Header = () => {
-    const userId = getUserId();
-    const userEmail = getUserEmail();
     const navigate = useNavigate();
+    const userInfo = getUserInfo();
     const {
         loading,
         openAuthen: open,
@@ -24,9 +23,9 @@ const Header = () => {
     } = useAppContext();
     const items = [
         {
-            label: userEmail,
+            label: userInfo?.email,
             key: "email",
-            onClick: () => navigate(`/profile/${userId}`),
+            onClick: () => navigate(`/profile/${userInfo?.id}`),
         },
         { type: "divider" },
         {
@@ -41,7 +40,7 @@ const Header = () => {
             danger: true,
             onClick: () => {
                 logout();
-                navigate("/");
+                window.location.reload()
             },
         },
     ];
@@ -79,7 +78,7 @@ const Header = () => {
                         </div>
                         <img src={Heart} alt="Heart" />
                         <HeaderCart />
-                        {userEmail ? (
+                        {userInfo?.email ? (
                             <Dropdown
                                 menu={{
                                     items,

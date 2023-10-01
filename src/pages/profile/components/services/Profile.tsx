@@ -1,15 +1,33 @@
 import { Button, Col, Form, Input, Row } from 'antd';
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { UserApis } from '../../../../apis/user';
+import { useAppContext } from '../../../../contexts/AppContext';
+import { IUser } from '../../../../types';
 
 interface IProfileServices {
-    id?: string
+    id?: string,
+    handleClose?: () => void,
+    user?: IUser
 }
 
-const ProfileServices: FC<IProfileServices> = ({ id }) => {
+const ProfileServices: FC<IProfileServices> = ({ id, handleClose, user }) => {
     const [form] = Form.useForm();
+    const { openNotiError, openNotiSuccess } = useAppContext();
+
+    useEffect(() => {
+        form.setFieldsValue(user);
+    }, [])
 
     const onFinish = (values: any) => {
-        console.log(values);
+        UserApis.updateUser(id, values).then(() => {
+            openNotiSuccess("Update user");
+            if (handleClose) {
+                handleClose()
+            }
+            window.location.reload()
+        }).catch(() => {
+            openNotiError("Update user");
+        })
     }
 
     return (
@@ -43,13 +61,6 @@ const ProfileServices: FC<IProfileServices> = ({ id }) => {
                 name="phoneNumber"
             >
                 <Input placeholder='Eg. 0987654321' />
-            </Form.Item>
-
-            <Form.Item
-                label={"Email"}
-                name="email"
-            >
-                <Input placeholder='Your email' />
             </Form.Item>
 
             <Button htmlType='submit' type='primary' block className='h-[40px]'>

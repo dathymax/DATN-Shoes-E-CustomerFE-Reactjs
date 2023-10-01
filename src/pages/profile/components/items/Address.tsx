@@ -2,14 +2,18 @@ import { Button, Modal } from "antd";
 import React, { FC, useState } from "react";
 import AddressServices from "../services/Address";
 import Remove from "../../../../assets/images/profile/Remove.png";
+import { IAddressShipping } from "../../../../types";
+import { AddressShippingApis } from "../../../../apis/address-shipping";
+import { useAppContext } from "../../../../contexts/AppContext";
 
 interface IAddressContentItem {
-    id?: string
+    address?: IAddressShipping
 }
 
-const AddressContentItem: FC<IAddressContentItem> = ({ id }) => {
+const AddressContentItem: FC<IAddressContentItem> = ({ address }) => {
     const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
+    const { openNotiSuccess, openNotiError } = useAppContext();
 
     const handleOpen = () => {
         setOpen(true);
@@ -27,11 +31,20 @@ const AddressContentItem: FC<IAddressContentItem> = ({ id }) => {
         setOpenDelete(false);
     }
 
+    const handleConfirmDelete = () => {
+        AddressShippingApis.deleteAddressShippingById(address?._id).then(() => {
+            window.location.reload();
+            openNotiSuccess("Delete address");
+        }).catch(() => {
+            openNotiError("Delete address");
+        })
+    }
+
     return (
         <>
             <div>
-                <p className='text-gray-400 mb-2 font-medium'>Home</p>
-                <p className='font-medium'>35 Đinh Cong Ha, Hoang Mai, Ha Noi, Viet Nam</p>
+                <p className='text-gray-400 mb-2 font-medium capitalize'>{address?.addressLabel}</p>
+                <p className='font-medium'>{address?.district}, {address?.province}, {address?.city}, {address?.country}</p>
                 <div className="flex items-center justify-end text-right gap-3 mt-2">
                     <p
                         className='font-medium text-primary cursor-pointer'
@@ -56,7 +69,10 @@ const AddressContentItem: FC<IAddressContentItem> = ({ id }) => {
                 footer={null}
                 centered
             >
-                <AddressServices id={id} />
+                <AddressServices
+                    address={address}
+                    addressId={address?._id}
+                />
             </Modal>
 
             <Modal
@@ -76,6 +92,7 @@ const AddressContentItem: FC<IAddressContentItem> = ({ id }) => {
                     <Button
                         block
                         className="bg-red-500 text-white h-[40px]"
+                        onClick={handleConfirmDelete}
                     >
                         Remove
                     </Button>
