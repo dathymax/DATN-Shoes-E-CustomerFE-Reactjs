@@ -55,3 +55,14 @@ export interface IAddressShipping {
     postalCode?: string,
     userId?: string
 }
+
+export interface IReview {
+    id?: string,
+    _id?: string,
+    title?: string,
+    description?: string,
+    authorName?: string,
+    authorEmail?: string,
+    rate?: number,
+    reviewDate?: Date,
+}

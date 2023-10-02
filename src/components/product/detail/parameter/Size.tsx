@@ -1,6 +1,11 @@
 import React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SizeParamter = () => {
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const sizeParams = searchParams.get("size");
+
     const sizes = [
         {
             value: 39,
@@ -23,6 +28,14 @@ const SizeParamter = () => {
             isDisable: true,
         },
     ];
+
+    const handleSetParams = (size: string) => {
+        if (size) {
+            searchParams.set("size", size);
+
+            navigate(`?${searchParams.toString()}`);
+        }
+    }
 
     return (
         <div>
@@ -47,11 +60,18 @@ const SizeParamter = () => {
                                     : "none",
                                 width: 40,
                                 height: 32,
-                                border: "1px solid lightgray",
+                                border: sizeParams === size.value.toString()
+                                    ? "2px solid green"
+                                    : "2px solid lightgray",
                                 cursor: size.isDisable
                                     ? "not-allowed"
                                     : "pointer",
                                 color: size.isDisable ? "gray" : "black",
+                            }}
+                            onClick={() => {
+                                if (!size.isDisable) {
+                                    handleSetParams(size.value.toString())
+                                }
                             }}
                         >
                             {size.value}

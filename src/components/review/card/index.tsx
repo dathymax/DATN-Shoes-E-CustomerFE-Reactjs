@@ -1,26 +1,27 @@
-import React from "react";
+import React, { FC } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { IReview } from "../../../types";
+import { Rate } from "antd";
+import dayjs from "dayjs";
 
-const ReviewCard = () => {
+interface ReviewCardProps {
+    review?: IReview
+}
+
+const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
     return (
         <div className="h-[400px] bg-gray-100 rounded-lg px-3 py-8 flex items-center flex-col justify-between">
-            <div>
-                <h3 className="mb-3">Love the Sweater</h3>
-                <p className="text-gray-500 text-[13px] leading-[20px]">
-                    I really love how it looks, and it is indeed have a good
-                    quality fabric. I am ready to create color coordinated look
-                    with this sweater
+            <div className="w-full">
+                <h3 className="mb-3 text-[25px]">{review?.title}</h3>
+                <p className="text-gray-500 text-[16px] leading-[20px]">
+                    {review?.description}
                 </p>
             </div>
             <div className="w-full">
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
+                <Rate disabled value={review?.rate} />
                 <div className="flex items-center justify-between">
-                    <p className="text-[12px] text-gray-500">Yahyo Prayogo</p>
-                    <p className="text-[12px] text-gray-500">05/04/22</p>
+                    <p className="text-[12px] text-gray-500">{review?.authorName}</p>
+                    <p className="text-[12px] text-gray-500">{dayjs(review?.reviewDate).format("DD/MM/YYYY")}</p>
                 </div>
             </div>
         </div>

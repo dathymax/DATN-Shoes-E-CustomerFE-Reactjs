@@ -51,3 +51,16 @@ export const formatStatusFromBoolean = (status?: boolean | string) => {
         return "inactive";
     }
 };
+
+export function getRandomElementsFromArray(arr: any[], n: number) {
+    const shuffled = arr.slice(0);
+    let i = arr.length;
+    const min = i - n;
+
+    while (i-- > min) {
+        const index = Math.floor((i + 1) * Math.random());
+        [shuffled[index], shuffled[i]] = [shuffled[i], shuffled[index]];
+    }
+
+    return shuffled.slice(min);
+}
