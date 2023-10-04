@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import HomePageHero from "./components/Hero";
 import HomePageBestSelling from "./components/BestSelling";
@@ -9,6 +9,11 @@ import HomePageNews from "./components/News";
 import HomePageTreatment from "./components/Treatment";
 
 const HomePage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div>
             <HomePageHero />

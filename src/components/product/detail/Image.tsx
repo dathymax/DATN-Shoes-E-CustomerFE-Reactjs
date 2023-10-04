@@ -1,42 +1,36 @@
 import React from "react";
-import Detail1 from "../../../assets/images/detail-product/Detail1.png";
-import Detail2 from "../../../assets/images/detail-product/Detail2.png";
-import Detail3 from "../../../assets/images/detail-product/Detail3.png";
-import Detail4 from "../../../assets/images/detail-product/Detail4.png";
-import Detail5 from "../../../assets/images/detail-product/Detail5.png";
+import { useAppSelector } from "../../../store/store";
+import { genUploadUrl } from "../../../helpers";
 
 const ProductDetailImage = () => {
+    const item = useAppSelector(state => state.products.item);
+
     return (
         <div className="col-span-6">
             <div className="grid grid-cols-4">
-                <div className="col-span-3">
+                <div className="col-span-3 h-[600px]">
                     <img
-                        src={Detail1}
+                        src={genUploadUrl(item?.images?.[0]?.fileName)}
                         alt="Detail"
-                        className="w-full rounded-lg object-cover"
+                        className="w-full h-full rounded-lg object-cover"
                     />
                 </div>
                 <div className="col-span-1 flex flex-col items-center gap-3">
-                    <img
-                        src={Detail2}
+                    {item?.images?.[1]?.fileName && <img
+                        src={genUploadUrl(item?.images?.[1]?.fileName)}
                         alt="Detail"
                         className="w-[100px] h-[100px] rounded-lg object-cover"
-                    />
-                    <img
-                        src={Detail3}
+                    />}
+                    {item?.images?.[2]?.fileName && <img
+                        src={genUploadUrl(item?.images?.[2]?.fileName)}
                         alt="Detail"
                         className="w-[100px] h-[100px] rounded-lg object-cover"
-                    />
-                    <img
-                        src={Detail4}
+                    />}
+                    {item?.images?.[3]?.fileName && <img
+                        src={genUploadUrl(item?.images?.[3]?.fileName)}
                         alt="Detail"
                         className="w-[100px] h-[100px] rounded-lg object-cover"
-                    />
-                    <img
-                        src={Detail5}
-                        alt="Detail"
-                        className="w-[100px] h-[100px] rounded-lg object-cover"
-                    />
+                    />}
                 </div>
             </div>
         </div>

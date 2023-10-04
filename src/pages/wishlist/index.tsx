@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductCard from '../../components/product/card'
-import Product from "../../assets/images/Product.png"
 import WishlistEmpty from '../../components/wishlist/Empty';
+import { useAppSelector } from '../../store/store';
 
 const WishlistPage = () => {
-    const products = [];
+    const items = useAppSelector(state => state.products.items);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className='container m-auto py-20'>
@@ -13,10 +17,14 @@ const WishlistPage = () => {
                 <p className='text-red-500'>Remove all</p>
             </div>
 
-            {products.length > 0 ? <div className="grid grid-cols-12 gap-5">
-                <div className="col-span-3">
-                    <ProductCard img={Product} id={1} isLiked isNew isSoldOut name='Nike Zoom Kd Iii' price={250} />
-                </div>
+            {items.length > 0 ? <div className="grid grid-cols-12 gap-5">
+                {items.map(item => {
+                    return (
+                        <div key={item._id} className="col-span-3">
+                            <ProductCard product={item} />
+                        </div>
+                    )
+                })}
             </div> : <WishlistEmpty />}
         </div>
     )

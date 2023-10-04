@@ -1,5 +1,6 @@
 import jwt_decode from "jwt-decode";
 import { IUser } from "../types";
+import { UPLOAD_URL } from "../constants";
 
 export const checkItemsPerSlide = (itemsPerSlide: number) => {
     switch (itemsPerSlide) {
@@ -63,4 +64,8 @@ export function getRandomElementsFromArray(arr: any[], n: number) {
     }
 
     return shuffled.slice(min);
+}
+
+export function genUploadUrl(fileName?: string) {
+    return `${UPLOAD_URL}/${fileName}`;
 }

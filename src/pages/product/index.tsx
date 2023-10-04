@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchPageFilterPrice from "../../components/data-display/filter/FilterPrice";
 import SearchPageFilterBrand from "../../components/data-display/filter/FilterBrand";
 import SearchPageFilterSize from "../../components/data-display/filter/FilterSize";
 import ProductList from "../../components/product/list";
 
 const AllProductPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="container m-auto py-20">
             <h1 className="font-medium text-[35px] mb-5 text-center">

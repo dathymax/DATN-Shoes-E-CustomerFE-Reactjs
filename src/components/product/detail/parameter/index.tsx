@@ -9,10 +9,12 @@ import { AiOutlineZoomIn, AiOutlineShoppingCart } from "react-icons/ai";
 import ProductCartQuickView from "../../../../components/product/cart/QuickView";
 import ProductCartSubTotal from "../../../../components/product/cart/SubTotal";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../../store/store";
 
 const ProductDetailParameter = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const item = useAppSelector(state => state.products.item);
 
     const handleOpen = () => {
         setOpen(true);
@@ -24,15 +26,15 @@ const ProductDetailParameter = () => {
 
     return (
         <div className="col-span-6 bg-gray-50 rounded-lg p-6">
-            <h3 className="text-[30px] font-medium">Nike template</h3>
-            <p className="my-4 text-[25px] font-medium">$ 400.00</p>
+            <h3 className="text-[30px] font-medium">{item.name}</h3>
+            <p className="my-4 text-[25px] font-medium">${item.price}</p>
             <div className="flex items-center justify-between">
                 <p>398 products have been sold</p>
                 <div className="flex items-center justify-center gap-3">
-                    <p className="flex items-center justify-center gap-1">
+                    <p className="flex items-center justify-center gap-1 cursor-pointer">
                         <AiOutlineHeart /> Wishlist
                     </p>
-                    <p className="flex items-center justify-center gap-1">
+                    <p className="flex items-center justify-center gap-1 cursor-pointer">
                         <AiOutlineShareAlt /> Share
                     </p>
                 </div>

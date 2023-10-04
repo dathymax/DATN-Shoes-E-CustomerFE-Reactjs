@@ -1,27 +1,30 @@
-import React from "react";
-import ProductIMG from "../../../assets/images/Product.png";
+import React, { useEffect } from "react";
 import ProductCard from "../card";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { ProductApis } from "../../../apis/product";
+import { setAllProduct } from "../../../store/features/products";
 
 const ProductList = () => {
+    const dispatch = useAppDispatch();
+    const items = useAppSelector(state => state.products.items);
+
+    useEffect(() => {
+        ProductApis.getAllProducts().then(response => {
+            dispatch(setAllProduct(response?.data));
+        }).catch(() => { })
+    }, [])
+
     return (
         <div className="grid grid-cols-12 gap-5">
-            {new Array(10).fill(1).map((item, index) => {
+            {items?.map((item) => {
                 return (
                     <Link
-                        to={`/products/${index}`}
-                        key={index}
+                        to={`/products/${item._id}`}
+                        key={item._id}
                         className="col-span-4 text-black"
                     >
-                        <ProductCard
-                            key={index}
-                            img={ProductIMG}
-                            name={"Nike Zoom Kd lii"}
-                            price={300}
-                            isNew
-                            isLiked
-                            isSoldOut
-                        />
+                        <ProductCard product={item} />
                     </Link>
                 );
             })}

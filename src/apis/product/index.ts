@@ -2,14 +2,15 @@ import Axios_instance from "../../config/axios";
 import { IProduct } from "../../types";
 
 const url = "/shoes";
+const urlCustomer = "/shoes/customer";
 
 export const ProductApis = {
     getAllProducts: async () => {
-        const response = await Axios_instance.get(url);
+        const response = await Axios_instance.get(urlCustomer);
         return response?.data || [];
     },
     getProductById: async (id?: string) => {
-        const response = await Axios_instance.get(`${url}/${id}`);
+        const response = await Axios_instance.get(`${urlCustomer}/${id}`);
         return response?.data || {};
     },
     createProduct: async (values: IProduct) => {

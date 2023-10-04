@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductDetailImage from "../../../components/product/detail/Image";
 import ProductDetailParameter from "../../../components/product/detail/parameter";
 import Tabs from "../../../components/navigation/tabs";
 import ProductDetailReviews from "./components/Reviews";
 import ShippingAndReturns from "./components/ShippingAndReturns";
 import HomePageBestSelling from "../../home/components/BestSelling";
+import { useAppDispatch } from "../../../store/store";
+import { ProductApis } from "../../../apis/product";
+import { useParams } from "react-router-dom";
+import { setProduct } from "../../../store/features/products";
 
 const ProductDetailPage = () => {
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
+        if (id) {
+            ProductApis.getProductById(id).then(response => {
+                dispatch(setProduct(response?.data));
+            })
+        }
+    }, [id])
+
     return (
         <div className="container m-auto p-10">
             <div className="grid grid-cols-12 gap-20">

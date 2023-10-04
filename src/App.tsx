@@ -6,7 +6,6 @@ import AllProductPage from "./pages/product";
 import MyShoppingCart from "./pages/cart";
 import ProductDetailPage from "./pages/product/id";
 import CheckoutPage from "./pages/checkout";
-import Authenticate from "./components/authenticate";
 import WishlistPage from "./pages/wishlist";
 import ProfilePage from "./pages/profile";
 

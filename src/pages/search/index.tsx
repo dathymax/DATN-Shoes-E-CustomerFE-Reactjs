@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "antd";
 import { CiSearch } from "react-icons/ci";
 import ProductList from "../../components/product/list";
@@ -7,6 +7,11 @@ import SearchPageFilterBrand from "../../components/data-display/filter/FilterBr
 import SearchPageFilterSize from "../../components/data-display/filter/FilterSize";
 
 const SearchPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="container m-auto py-20">
             <div className="w-[35%] m-auto text-center">

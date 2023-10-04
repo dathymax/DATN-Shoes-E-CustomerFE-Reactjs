@@ -1,48 +1,11 @@
 import React from "react";
 import ProductCarosel from "../../../components/product/carosel";
 import { Link } from "react-router-dom";
-import ProductCard, { IProductCard } from "../../../components/product/card";
-import ProductIMG from "../../../assets/images/Product.png";
+import ProductCard from "../../../components/product/card";
+import { useAppSelector } from "../../../store/store";
 
 const HomePageBestSelling = () => {
-    const data: IProductCard[] = [
-        {
-            id: 1,
-            img: ProductIMG,
-            name: "Nike Zoom Kd lii",
-            price: 300,
-            isNew: true,
-            isLiked: true,
-            isSoldOut: true,
-        },
-        {
-            id: 2,
-            img: ProductIMG,
-            name: "Nike Zoom Kd lii",
-            price: 300,
-            isNew: true,
-            isLiked: true,
-            isSoldOut: true,
-        },
-        {
-            id: 3,
-            img: ProductIMG,
-            name: "Nike Zoom Kd lii",
-            price: 300,
-            isNew: true,
-            isLiked: true,
-            isSoldOut: true,
-        },
-        {
-            id: 4,
-            img: ProductIMG,
-            name: "Nike Zoom Kd lii",
-            price: 300,
-            isNew: true,
-            isLiked: true,
-            isSoldOut: true,
-        },
-    ];
+    const items = useAppSelector(state => state.products.items);
 
     return (
         <ProductCarosel
@@ -52,19 +15,13 @@ const HomePageBestSelling = () => {
                     View more
                 </Link>
             }
-            items={data.map((item) => {
+            items={items.map((item) => {
                 return {
-                    key: item.id,
+                    key: item._id,
                     content: (
-                        <ProductCard
-                            key={item.id}
-                            img={item.img}
-                            name={item.name}
-                            price={item.price}
-                            isNew={item.isNew}
-                            isLiked={item.isLiked}
-                            isSoldOut={item.isSoldOut}
-                        />
+                        <Link to={`/products/${item._id}`}>
+                            <ProductCard product={item} />
+                        </Link>
                     ),
                 };
             })}

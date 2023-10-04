@@ -2,6 +2,7 @@ import Axios_instance from "../../config/axios";
 import { IReview } from "../../types";
 
 const url = "/reviews";
+const urlCustomer = "/reviews/customer";
 
 export const ReviewApis = {
     createReview: async (values: IReview) => {
@@ -9,7 +10,7 @@ export const ReviewApis = {
         return response?.data || {}
     },
     getAllReviews: async () => {
-        const response = await Axios_instance.get(url);
+        const response = await Axios_instance.get(urlCustomer);
         return response?.data || {}
     }
 }

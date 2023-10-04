@@ -16,6 +16,10 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         if (id || userInfo?.id) {
             UserApis.getUserById(id || userInfo?.id).then(response => {
                 setUser(response?.data);

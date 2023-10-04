@@ -1,8 +1,3 @@
-export enum EAddressLabel {
-    HOME = "home",
-    OFFICE = "office"
-}
-
 export interface IUser {
     _id?: string;
     id?: string;
@@ -13,26 +8,25 @@ export interface IUser {
     password?: string;
     role?: string;
     avatar?: string;
-    phoneNumber?: string | number
 }
 
 export interface IProduct {
     _id?: string;
     id?: string | number;
-    img?: string;
+    images?: IImage[];
     price?: string | number;
     isNew?: boolean;
     isLiked?: boolean;
     isSoldOut?: boolean;
     stock?: number;
-    name?: string;
+    name?: string | React.ReactNode;
     rate?: number;
     shoeType?: string;
     color?: string;
     size?: number;
     description?: string;
     category?: string;
-    status?: string | boolean;
+    status?: string | boolean | React.ReactNode;
     discountType?: string;
     setDiscount?: string;
 }
@@ -43,17 +37,13 @@ export interface IPasswordReset {
     confirmPassword?: string;
 }
 
-export interface IAddressShipping {
-    id?: string,
-    _id?: string,
-    addressLabel?: EAddressLabel,
-    country?: string,
-    address?: string,
-    province?: string,
-    city?: string,
-    district?: string,
-    postalCode?: string,
-    userId?: string
+export interface IImage {
+    _id?: string;
+    id?: string | number;
+    fileName?: string;
+    fileType?: string;
+    fileSize?: number;
+    filePath?: string;
 }
 
 export interface IReview {

@@ -1,10 +1,13 @@
 import ProductCartList from "../../components/product/cart/List";
 import ProductCartEmpty from "../../components/product/cart/Empty";
-import React from "react";
-
+import React, { useEffect } from "react";
 
 const MyShoppingCart = () => {
     const products = [1, 2, 3];
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="container m-auto py-16 text-center">
