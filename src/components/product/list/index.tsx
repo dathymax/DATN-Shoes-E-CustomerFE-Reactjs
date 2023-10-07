@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProductCard from "../card";
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { ProductApis } from "../../../apis/product";
-import { setAllProduct } from "../../../store/features/products";
+import { useAppSelector } from "../../../store/store";
 
 const ProductList = () => {
-    const dispatch = useAppDispatch();
-    const items = useAppSelector(state => state.products.items);
-
-    useEffect(() => {
-        ProductApis.getAllProducts().then(response => {
-            dispatch(setAllProduct(response?.data));
-        }).catch(() => { })
-    }, [])
+    const items = useAppSelector((state) => state.products.items);
 
     return (
         <div className="grid grid-cols-12 gap-5">

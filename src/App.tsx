@@ -8,8 +8,22 @@ import ProductDetailPage from "./pages/product/id";
 import CheckoutPage from "./pages/checkout";
 import WishlistPage from "./pages/wishlist";
 import ProfilePage from "./pages/profile";
+import { useAppDispatch } from "./store/store";
+import { useEffect } from "react";
+import { ProductApis } from "./apis/product";
+import { setAllProduct } from "./store/features/products";
 
 function App() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        ProductApis.getAllProducts()
+            .then((response) => {
+                dispatch(setAllProduct(response?.data));
+            })
+            .catch(() => {});
+    }, []);
+
     return (
         <Routes>
             <Route element={<Layout />}>
