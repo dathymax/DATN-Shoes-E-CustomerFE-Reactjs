@@ -10,10 +10,12 @@ import ProductCartQuickView from "../../../../components/product/cart/QuickView"
 import ProductCartSubTotal from "../../../../components/product/cart/SubTotal";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../../store/store";
+import { genUploadUrl } from "../../../../helpers";
 
 const ProductDetailParameter = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [openPreview, setOpenPreview] = useState(false);
     const item = useAppSelector(state => state.products.item);
 
     const handleOpen = () => {
@@ -22,6 +24,14 @@ const ProductDetailParameter = () => {
 
     const handleClose = () => {
         setOpen(false);
+    }
+
+    const handleOpenPreview = () => {
+        setOpenPreview(true);
+    }
+
+    const handleClosePreview = () => {
+        setOpenPreview(false);
     }
 
     return (
@@ -49,6 +59,7 @@ const ProductDetailParameter = () => {
                 <Button
                     className="h-[50px] flex items-center justify-center gap-2"
                     block
+                    onClick={handleOpenPreview}
                 >
                     <AiOutlineZoomIn className="text-[16px]" />
                     <p className="font-medium">Preview</p>
@@ -86,6 +97,17 @@ const ProductDetailParameter = () => {
                         Checkout
                     </Button>
                 </div>
+            </Modal>
+
+            <Modal
+                open={openPreview}
+                onCancel={handleClosePreview}
+                destroyOnClose
+                title={"Preview"}
+                footer={null}
+                centered
+            >
+                <img src={genUploadUrl(item.images?.[0].fileName)} alt="Preview image" className="w-full h-full rounded-lg" />
             </Modal>
         </div>
     );

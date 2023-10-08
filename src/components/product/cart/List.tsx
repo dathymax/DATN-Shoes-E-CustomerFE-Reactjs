@@ -102,6 +102,15 @@ const ProductCartList: FC<IProductCartList> = ({ products = [] }) => {
                 );
             })}
 
+            <div className="text-right flex items-center gap-4 justify-end">
+                <Button size="large">
+                    Continue shopping
+                </Button>
+                <Button size="large" type="primary">
+                    Checkout
+                </Button>
+            </div>
+
             <CustomModal
                 open={openDelete}
                 onCancel={handleCloseDelete}
