@@ -1,11 +1,10 @@
 import React, { FC } from "react";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { IReview } from "../../../types";
 import { Rate } from "antd";
 import dayjs from "dayjs";
 
 interface ReviewCardProps {
-    review?: IReview
+    review?: IReview;
 }
 
 const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
@@ -20,8 +19,12 @@ const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
             <div className="w-full">
                 <Rate disabled value={review?.rate} />
                 <div className="flex items-center justify-between">
-                    <p className="text-[12px] text-gray-500">{review?.authorName}</p>
-                    <p className="text-[12px] text-gray-500">{dayjs(review?.reviewDate).format("DD/MM/YYYY")}</p>
+                    <p className="text-[12px] text-gray-500">
+                        {review?.authorName}
+                    </p>
+                    <p className="text-[12px] text-gray-500">
+                        {dayjs(review?.reviewDate).format("DD/MM/YYYY")}
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { FC } from "react";
 import Product from "../../../assets/images/Product.png";
+import { IProduct } from "../../../types";
 
-const ProductCartOrdered = () => {
+interface ProductCartOrderedProps {
+    product: IProduct;
+}
+
+const ProductCartOrdered: FC<ProductCartOrderedProps> = ({ product }) => {
     return (
         <div className="grid grid-cols-3 gap-3">
             <div className="col-span-1 h-[200px]">
@@ -13,15 +18,15 @@ const ProductCartOrdered = () => {
             </div>
             <div className="col-span-2 flex items-center justify-between flex-col gap-2">
                 <div className="w-full">
-                    <p>Sprint collection</p>
-                    <p className="font-medium">Nike template</p>
+                    <p>{product.category}</p>
+                    <p className="font-medium">{product.name}</p>
                 </div>
                 <div className="flex items-center justify-between w-full">
-                    43 | Black
+                    {product.size} | Black
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ProductCartOrdered
+export default ProductCartOrdered;

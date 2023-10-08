@@ -1,35 +1,38 @@
-import { Button, Form, Input, Rate } from 'antd'
-import React from 'react'
-import { IReview } from '../../../types';
-import { ReviewApis } from '../../../apis/review';
-import { useAppContext } from '../../../contexts/AppContext';
+import { Button, Form, Input, Rate } from "antd";
+import React from "react";
+import { IReview } from "../../../types";
+import { ReviewApis } from "../../../apis/review";
+import { useAppContext } from "../../../contexts/AppContext";
 
 const ServiceForm = () => {
     const [form] = Form.useForm();
     const { openNotiError, openNotiSuccess } = useAppContext();
 
     const onFinish = (values: IReview) => {
-        ReviewApis.createReview(values).then(() => {
-            openNotiSuccess("Create review");
-            window.location.reload();
-        }).catch(() => {
-            openNotiError("Create review");
-        })
-    }
+        ReviewApis.createReview(values)
+            .then(() => {
+                openNotiSuccess("Create review");
+                window.location.reload();
+            })
+            .catch((error) => {
+                const { response } = error;
+                openNotiError("Create review", response?.data?.message);
+            });
+    };
 
     return (
-        <Form form={form} layout='vertical' onFinish={onFinish}>
+        <Form form={form} layout="vertical" onFinish={onFinish}>
             <Form.Item
                 name={"authorName"}
                 label="Name"
                 rules={[
                     {
                         required: true,
-                        message: "Please type your name"
-                    }
+                        message: "Please type your name",
+                    },
                 ]}
             >
-                <Input size='large' placeholder='Your name' />
+                <Input size="large" placeholder="Your name" />
             </Form.Item>
 
             <Form.Item
@@ -39,11 +42,15 @@ const ServiceForm = () => {
                     {
                         required: true,
                         type: "email",
-                        message: "Please type your email"
-                    }
+                        message: "Please type your email",
+                    },
                 ]}
             >
-                <Input type='email' size='large' placeholder='Your email address' />
+                <Input
+                    type="email"
+                    size="large"
+                    placeholder="Your email address"
+                />
             </Form.Item>
 
             <Form.Item
@@ -52,8 +59,8 @@ const ServiceForm = () => {
                 rules={[
                     {
                         required: true,
-                        message: "Please type rate the product"
-                    }
+                        message: "Please type rate the product",
+                    },
                 ]}
             >
                 <Rate allowClear />
@@ -65,11 +72,11 @@ const ServiceForm = () => {
                 rules={[
                     {
                         required: true,
-                        message: "Please type your title"
-                    }
+                        message: "Please type your title",
+                    },
                 ]}
             >
-                <Input size='large' placeholder='Your review a title' />
+                <Input size="large" placeholder="Your review a title" />
             </Form.Item>
 
             <Form.Item
@@ -78,23 +85,25 @@ const ServiceForm = () => {
                 rules={[
                     {
                         required: true,
-                        message: "Please type your review"
-                    }
+                        message: "Please type your review",
+                    },
                 ]}
             >
                 <Input.TextArea
-                    size='large'
-                    placeholder='write your review....' autoSize={{
-                        maxRows: 5, minRows: 5
+                    size="large"
+                    placeholder="write your review...."
+                    autoSize={{
+                        maxRows: 5,
+                        minRows: 5,
                     }}
                 />
             </Form.Item>
 
-            <Button type='primary' htmlType='submit' block size='large'>
+            <Button type="primary" htmlType="submit" block size="large">
                 Submit review
             </Button>
         </Form>
-    )
-}
+    );
+};
 
-export default ServiceForm
+export default ServiceForm;

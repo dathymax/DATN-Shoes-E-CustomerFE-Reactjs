@@ -9,7 +9,8 @@ import { UserApis } from "../../apis/user";
 
 const Authenticate = () => {
     const [type, setType] = useState("login");
-    const { setLoading, setOpenAuthen, openNotiSuccess, openNotiError } = useAppContext();
+    const { setLoading, setOpenAuthen, openNotiSuccess, openNotiError } =
+        useAppContext();
 
     const handleSetType = (type: string) => {
         setType(type);
@@ -27,9 +28,10 @@ const Authenticate = () => {
                     window.location.reload();
                     openNotiSuccess("Login");
                 })
-                .catch(() => {
+                .catch((error) => {
+                    const { response } = error;
                     setLoading(false);
-                    openNotiError("Login");
+                    openNotiError("Login", response?.data?.message);
                 });
         } else {
             UserApis.createUser(values)
@@ -38,9 +40,10 @@ const Authenticate = () => {
                     setOpenAuthen(false);
                     openNotiSuccess("Register");
                 })
-                .catch(() => {
+                .catch((error) => {
+                    const { response } = error;
                     setLoading(false);
-                    openNotiError("Register");
+                    openNotiError("Register", response?.data?.message);
                 });
         }
     };
