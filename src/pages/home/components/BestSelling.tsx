@@ -19,7 +19,7 @@ const HomePageBestSelling = () => {
                 return {
                     key: item._id,
                     content: (
-                        <Link to={`/products/${item._id}`}>
+                        <Link to={`/products/${item._id}`} className="block m-3">
                             <ProductCard product={item} />
                         </Link>
                     ),

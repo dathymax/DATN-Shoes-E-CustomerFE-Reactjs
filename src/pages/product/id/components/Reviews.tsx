@@ -13,8 +13,10 @@ const ProductDetailReviews = () => {
             .then((response) => {
                 setReviews(response?.data);
             })
-            .catch(() => {});
+            .catch(() => { });
     }, []);
+
+    console.log(reviews)
 
     return (
         <div className="grid grid-cols-12 gap-5">
@@ -22,7 +24,7 @@ const ProductDetailReviews = () => {
                 <ReviewService />
             </div>
             {reviews.length > 0 &&
-                getRandomElementsFromArray(reviews, 3).map((review) => {
+                reviews.map((review) => {
                     return (
                         <div key={review?._id} className="col-span-3">
                             <ReviewCard review={review} />

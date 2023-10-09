@@ -1,4 +1,7 @@
-import React, { FC } from "react";
+import { Button } from "antd";
+import React, { FC, useRef } from "react";
+import Slider from "react-slick";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 interface IItem {
     key?: string | number;
@@ -13,22 +16,75 @@ interface ProductCaroselProps {
 }
 
 const ProductCarosel: FC<ProductCaroselProps> = ({ title, extra, items }) => {
+    const ref = useRef(null);
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        initialSlide: 4,
+        arrows: false,
+        autoPlay: true,
+        autoPlaySpeed: 3000,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
+    };
+
     return (
-        <>
+        <div className="relative">
             <div className="flex items-center justify-between mb-5">
                 <h3 className="font-medium">{title}</h3>
                 <span className="text-primary">{extra}</span>
             </div>
-            <div className="grid grid-cols-12 gap-5">
+            <Button
+                className="absolute bg-white rounded-full w-[40px] h-[40px] border border-gray-300 outline-none -left-10 flex items-center justify-center top-[50%]"
+                style={{ transform: "translate(-50%, -25%)" }}
+                onClick={() => ref?.current?.slickPrev()}
+            >
+                <GrPrevious />
+            </Button>
+            <Slider ref={ref} {...settings}>
                 {items?.map((item) => {
                     return (
-                        <div key={item.key} className="col-span-3">
+                        <div key={item.key}>
                             {item.content}
                         </div>
                     );
                 })}
-            </div>
-        </>
+            </Slider>
+            <Button
+                className="absolute bg-white rounded-full w-[40px] h-[40px] border border-gray-300 outline-none -right-10 flex items-center justify-center top-[50%]"
+                style={{ transform: "translate(50%, -25%)" }}
+                onClick={() => ref?.current?.slickNext()}
+            >
+                <GrNext />
+            </Button>
+        </div>
     );
 };
 
