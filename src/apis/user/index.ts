@@ -2,6 +2,7 @@ import Axios_instance from "../../config/axios";
 import { IUser } from "../../types";
 
 const url = "/users";
+const urlWishlist = "/users/wishlist";
 
 export const UserApis = {
     getUserById: async function (id?: string) {
@@ -17,3 +18,18 @@ export const UserApis = {
         return response?.data || {}
     }
 };
+
+export const WishlistApis = {
+    getWishlistShoeByUserId: async function (userId?: string) {
+        const response = await Axios_instance.get(`${urlWishlist}/${userId}`);
+        return response?.data || [];
+    },
+    addWishlistByUserId: async function (userId?: string, shoeId?: string) {
+        const response = await Axios_instance.post(`${urlWishlist}/${userId}/${shoeId}`);
+        return response?.data || {};
+    },
+    deleteWishlistShoeByShoeId: async function (shoeId?: string) {
+        const response = await Axios_instance.delete(`${urlWishlist}/${shoeId}`);
+        return response?.data || {};
+    },
+}

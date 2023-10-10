@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../../components/product/card'
 import WishlistEmpty from '../../components/wishlist/Empty';
 import { useAppSelector } from '../../store/store';
+import { WishlistApis } from '../../apis/user';
+import { useAppContext } from '../../contexts/AppContext';
+import { IWishlistShoe } from '../../types';
 
 const WishlistPage = () => {
-    const items = useAppSelector(state => state.products.items);
+    const user = useAppSelector(state => state.auth.userInfo);
+    const [items, setItems] = useState<IWishlistShoe[]>([]);
+    const { openNotiError } = useAppContext();
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+        WishlistApis.getWishlistShoeByUserId(user?.id).then(response => {
+            setItems(response?.data);
+        }).catch(() => {
+            setItems([]);
+            openNotiError("Get wishlist");
+        })
+    }, [])
 
     return (
         <div className='container m-auto py-20'>

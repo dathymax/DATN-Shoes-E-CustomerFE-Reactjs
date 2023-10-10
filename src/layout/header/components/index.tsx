@@ -1,5 +1,5 @@
 import React from "react";
-import Fire from "../../../../assets/images/Fire.png";
+import Fire from "../../../assets/images/Fire.png";
 import { Link } from "react-router-dom";
 import "./index.css";
 

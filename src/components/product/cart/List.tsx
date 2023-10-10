@@ -48,7 +48,7 @@ const ProductCartList: FC<IProductCartList> = ({ products = [] }) => {
                     <>
                         <div
                             key={product._id}
-                            className="grid grid-cols-6 gap-3 text-[20px] text-left mb-5"
+                            className="grid grid-cols-6 gap-3 text-left mb-7"
                         >
                             <div className="col-span-2">
                                 <ProductCartOrdered product={product} />
@@ -101,15 +101,6 @@ const ProductCartList: FC<IProductCartList> = ({ products = [] }) => {
                     </>
                 );
             })}
-
-            <div className="text-right flex items-center gap-4 justify-end">
-                <Button size="large">
-                    Continue shopping
-                </Button>
-                <Button size="large" type="primary">
-                    Checkout
-                </Button>
-            </div>
 
             <CustomModal
                 open={openDelete}

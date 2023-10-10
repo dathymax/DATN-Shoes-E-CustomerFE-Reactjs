@@ -3,15 +3,15 @@ import SaleNotification from "../../components/feedback/notification/sale";
 import Logo from "../../assets/images/Logo.png";
 import { Dropdown, Input, Modal, Spin } from "antd";
 import Authenticate from "../../components/authenticate";
-import Navigation from "./components/navigation";
-import Heart from "../../assets/images/Heart.png";
+import Navigation from "./components";
 import Search from "../../assets/images/Search.png";
-import HeaderCart from "./components/navigation/Cart";
+import HeaderCart from "./components/Cart";
 import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../apis/auth";
 import { AiOutlineUser } from "react-icons/ai";
 import { getUserInfo } from "../../helpers";
+import Wishlist from "./components/Wishlist";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -76,7 +76,7 @@ const Header = () => {
                                 placeholder="Search product"
                             />
                         </div>
-                        <img src={Heart} alt="Heart" />
+                        <Wishlist />
                         <HeaderCart />
                         {userInfo?.email ? (
                             <Dropdown

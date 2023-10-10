@@ -6,8 +6,12 @@ import Register from "./register";
 import { login } from "../../apis/auth";
 import { useAppContext } from "../../contexts/AppContext";
 import { UserApis } from "../../apis/user";
+import { useAppDispatch } from "../../store/store";
+import { setUserInfo } from "../../store/features/auth";
+import jwtDecode from "jwt-decode";
 
 const Authenticate = () => {
+    const dispatch = useAppDispatch();
     const [type, setType] = useState("login");
     const { setLoading, setOpenAuthen, openNotiSuccess, openNotiError } =
         useAppContext();
@@ -27,6 +31,7 @@ const Authenticate = () => {
                     setOpenAuthen(false);
                     window.location.reload();
                     openNotiSuccess("Login");
+                    dispatch(setUserInfo({ user: jwtDecode(response), token: response }));
                 })
                 .catch((error) => {
                     const { response } = error;

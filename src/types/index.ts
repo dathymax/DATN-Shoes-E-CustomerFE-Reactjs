@@ -56,3 +56,23 @@ export interface IReview {
     rate?: number,
     reviewDate?: Date,
 }
+
+export interface IWishlistShoe {
+    _id?: string,
+    id?: string,
+    shoeId?: string,
+    name?: string,
+    rate?: number,
+    shoeType?: string,
+    color?: string,
+    size?: number,
+    price?: number,
+    description?: string,
+    category?: string,
+    status?: string,
+    discountType?: string,
+    setDiscount?: string,
+    images?: IImage[],
+    createDate?: Date,
+    userId?: string,
+}
