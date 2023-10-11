@@ -16,8 +16,6 @@ const ProductDetailReviews = () => {
             .catch(() => { });
     }, []);
 
-    console.log(reviews)
-
     return (
         <div className="grid grid-cols-12 gap-5">
             <div className="col-span-3">

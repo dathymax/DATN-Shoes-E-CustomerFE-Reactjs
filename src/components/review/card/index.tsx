@@ -8,8 +8,6 @@ interface ReviewCardProps {
 }
 
 const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
-    console.log(review)
-
     return (
         <div className="h-[400px] bg-gray-100 rounded-lg px-3 py-8 flex items-center flex-col justify-between">
             <div className="w-full">

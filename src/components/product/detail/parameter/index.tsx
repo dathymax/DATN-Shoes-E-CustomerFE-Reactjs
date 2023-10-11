@@ -8,18 +8,35 @@ import ProductCounter from "../../counter";
 import { AiOutlineZoomIn, AiOutlineShoppingCart } from "react-icons/ai";
 import ProductCartQuickView from "../../../../components/product/cart/QuickView";
 import ProductCartSubTotal from "../../../../components/product/cart/SubTotal";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../../store/store";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { genUploadUrl } from "../../../../helpers";
+import { WishlistApis } from "../../../../apis/wishlist";
+import { useAppContext } from "../../../../contexts/AppContext";
+import { addToCart } from "../../../../store/features/cart";
 
 const ProductDetailParameter = () => {
     const navigate = useNavigate();
+    const user = useAppSelector(state => state.auth.userInfo);
     const [open, setOpen] = useState(false);
     const [openPreview, setOpenPreview] = useState(false);
     const item = useAppSelector(state => state.products.item);
+    const { openNotiError, openNotiSuccess } = useAppContext();
+    const [searchParams] = useSearchParams();
+    const color = searchParams.get("color") || "";
+    const counter = searchParams.get("counter") || 0;
+    const size = searchParams.get("size") || 0;
+    const dispatch = useAppDispatch();
 
     const handleOpen = () => {
         setOpen(true);
+        dispatch(addToCart({
+            product: item,
+            quantity: Number(counter),
+            totalPricePerItem: Number(item.price) * Number(counter),
+            color,
+            size
+        }))
     }
 
     const handleClose = () => {
@@ -34,6 +51,15 @@ const ProductDetailParameter = () => {
         setOpenPreview(false);
     }
 
+    const handeAddWishlist = () => {
+        WishlistApis.addWishlistByUserId(user.id, item._id).then(response => {
+            openNotiSuccess("Add wishlist");
+            window.location.reload();
+        }).catch(() => {
+            openNotiError("Add wishlist");
+        });
+    }
+
     return (
         <div className="col-span-6 bg-gray-50 rounded-lg p-6">
             <h3 className="text-[30px] font-medium">{item.name}</h3>
@@ -41,7 +67,10 @@ const ProductDetailParameter = () => {
             <div className="flex items-center justify-between">
                 <p>398 products have been sold</p>
                 <div className="flex items-center justify-center gap-3">
-                    <p className="flex items-center justify-center gap-1 cursor-pointer">
+                    <p
+                        className="flex items-center justify-center gap-1 cursor-pointer"
+                        onClick={handeAddWishlist}
+                    >
                         <AiOutlineHeart /> Wishlist
                     </p>
                     <p className="flex items-center justify-center gap-1 cursor-pointer">
@@ -69,13 +98,14 @@ const ProductDetailParameter = () => {
                     block
                     type="primary"
                     onClick={handleOpen}
+                    disabled={Number(counter) <= 0}
                 >
                     <AiOutlineShoppingCart className="text-[16px]" />
                     <p className="font-medium">Add to cart</p>
                 </Button>
             </div>
             <Divider />
-            <DescriptionParameter />
+            <DescriptionParameter description={item.description} />
 
             <Modal
                 open={open}
@@ -90,10 +120,19 @@ const ProductDetailParameter = () => {
                 <Divider />
 
                 <div className="flex items-center justify-center gap-3">
-                    <Button block className="h-[50px]" onClick={() => navigate("/my-cart")}>
+                    <Button
+                        block
+                        className="h-[50px]"
+                        onClick={() => navigate("/my-cart")}
+                    >
                         View cart
                     </Button>
-                    <Button type="primary" block className="h-[50px]" onClick={() => navigate("/my-cart")}>
+                    <Button
+                        type="primary"
+                        block
+                        className="h-[50px]"
+                        onClick={() => navigate("/my-cart")}
+                    >
                         Checkout
                     </Button>
                 </div>

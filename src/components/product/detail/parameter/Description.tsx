@@ -1,14 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 
-const DescriptionParameter = () => {
+interface DescriptionParameterProps {
+    description?: string
+}
+
+const DescriptionParameter: FC<DescriptionParameterProps> = ({ description }) => {
     return (
         <div>
             <h3 className="mb-3">Description</h3>
             <p>
-                The Nike Air Force 1 is a blank canvas. It is the perfect canvas
-                to express your personal style. Whether you want to dress it up
-                with a suit or dress it down with jeans, the Air Force 1 is
-                always a good choice.
+                {description}
             </p>
         </div>
     );
