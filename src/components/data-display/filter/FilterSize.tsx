@@ -28,7 +28,6 @@ const SearchPageFilterSize = () => {
     return (
         <div>
             <FilterCheckbox title="Size" items={itemsSize} />
-            <div className="h-[30px]"></div>
         </div>
     );
 };

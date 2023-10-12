@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ProductCard from "../card";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAppSelector } from "../../../store/store";
 
 const ProductList = () => {
+    const [searchParams] = useSearchParams();
+    const search = searchParams.get("search") || "";
     const items = useAppSelector((state) => state.products.items);
+
+    const itemFiltered = useMemo(() => {
+        return items.filter(item =>
+            item?.name?.toString()?.toLowerCase()
+                ?.includes(search?.toLowerCase()));
+    }, [search]);
 
     return (
         <div className="grid grid-cols-12 gap-5">
-            {items?.map((item) => {
+            {itemFiltered?.map((item) => {
                 return (
                     <Link
                         to={`/products/${item._id}`}

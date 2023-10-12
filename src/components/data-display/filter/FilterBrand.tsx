@@ -31,8 +31,7 @@ const SearchPageFilterBrand = () => {
 
     return (
         <div>
-            <FilterCheckbox title="Size" items={itemsBrand} />
-            <div className="h-[30px]"></div>
+            <FilterCheckbox title="Brand" items={itemsBrand} />
         </div>
     );
 };
