@@ -21,8 +21,11 @@ const ProductCartOrdered: FC<ProductCartOrderedProps> = ({ cartItem }) => {
                     <p className="text-[16px] mb-1">{cartItem?.product?.category}</p>
                     <p className="font-medium text-[16px]">{cartItem?.product?.name}</p>
                 </div>
-                <div className="ml-4 flex w-full text-[16px] mb-2">
-                    {cartItem.size} | <span className="capitalize ml-1">{cartItem.color}</span>
+                <div className="ml-4 flex items-center w-full text-[16px] mb-2">
+                    {cartItem.size} | <p className="capitalize ml-1 flex items-center gap-2">
+                        {cartItem.color}
+                        <p className="w-[25px] h-[25px] rounded-lg" style={{ background: cartItem.color }}></p>
+                    </p>
                 </div>
             </div>
         </div>
