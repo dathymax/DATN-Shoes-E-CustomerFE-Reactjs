@@ -3,6 +3,7 @@ import CheckoutPageBreadcrumb from './components/BreadCrumb'
 import SummaryOrder from './components/SummaryOrder';
 import ShippingDetails from './components/ShippingDetails';
 import PriceSummary from './components/PriceSummary';
+import PaymentMethod from './components/PaymentMethod';
 
 export interface IStep {
     firstStep?: boolean,
@@ -18,8 +19,12 @@ const CheckoutPage = () => {
             <div className='h-[30px]'></div>
             <div className='grid grid-cols-12 gap-10'>
                 <div className='col-span-7'>
-                    <SummaryOrder />
-                    <ShippingDetails />
+                    {!activeStep.firstStep
+                        ? <>
+                            <SummaryOrder />
+                            <ShippingDetails />
+                        </>
+                        : <PaymentMethod />}
                 </div>
                 <div className="col-span-5">
                     <PriceSummary activeStep={activeStep} setActiveStep={setActiveStep} />
