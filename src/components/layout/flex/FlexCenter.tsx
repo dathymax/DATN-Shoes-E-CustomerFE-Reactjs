@@ -2,12 +2,13 @@ import React, { FC } from 'react'
 
 interface FlexCenterProps {
     children: React.ReactNode,
-    gap?: number
+    gap?: number,
+    className?: string
 }
 
-const FlexCenter: FC<FlexCenterProps> = ({ children, gap }) => {
+const FlexCenter: FC<FlexCenterProps> = ({ children, gap, className }) => {
     return (
-        <div className='flex items-center justify-center' style={{ gap: `${gap}px` }}>
+        <div className={`flex items-center justify-center ${className}`} style={{ gap: `${gap}px` }}>
             {children}
         </div>
     )
