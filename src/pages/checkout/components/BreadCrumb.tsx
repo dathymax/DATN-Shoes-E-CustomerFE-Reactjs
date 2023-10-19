@@ -1,23 +1,21 @@
 import React, { FC } from 'react'
 import { GrLinkNext } from 'react-icons/gr'
-import { IStep } from '..';
 import { AiFillCheckSquare } from 'react-icons/ai';
 
 interface CheckoutPageBreadcrumbProps {
-    activeStep: IStep
+    step: string
 }
 
-const CheckoutPageBreadcrumb: FC<CheckoutPageBreadcrumbProps> = ({ activeStep }) => {
-    const checkFirstStep = activeStep.firstStep;
-    const checkSecondStep = activeStep.secondStep;
+const CheckoutPageBreadcrumb: FC<CheckoutPageBreadcrumbProps> = ({ step }) => {
+    const checkSecondStep = step === "second";
 
     return (
         <div
             className='flex items-center gap-10 cursor-not-allowed select-none'
             onClick={(e) => e.preventDefault()}
         >
-            <div className={`flex items-center gap-2 font-medium ${checkFirstStep ? "text-primary" : ""}`}>
-                {!checkFirstStep ? <p className={`bg-gray-700 rounded-full text-center w-[25px] text-white h-[25px] flex items-center justify-center`}>
+            <div className={`flex items-center gap-2 font-medium ${checkSecondStep ? "text-primary" : ""}`}>
+                {!checkSecondStep ? <p className={`bg-gray-700 rounded-full text-center w-[25px] text-white h-[25px] flex items-center justify-center`}>
                     1
                 </p> : <AiFillCheckSquare />}
                 Shipping details

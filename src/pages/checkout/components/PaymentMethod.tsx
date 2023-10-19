@@ -8,13 +8,26 @@ import Flex from '../../../components/layout/flex/Flex'
 import Momo from "../../../assets/icons/momo.png";
 import Moca from "../../../assets/icons/moca.png";
 import Payoo from "../../../assets/icons/payoo.png";
+import { useAppDispatch, useAppSelector } from '../../../store/store'
+import { setPaymentMethod } from '../../../store/features/payment'
 
 const PaymentMethod = () => {
+    const dispatch = useAppDispatch();
+    const paymentMethod = useAppSelector(state => state.payment.paymentMethod);
+
+    const handleSetPaymentMethod = (method: string) => {
+        dispatch(setPaymentMethod({ method }));
+    }
+
     return (
         <div className='p-4 rounded-lg bg-white shadow-sm'>
             <h2>Payment Method</h2>
             <div className='h-[30px]'></div>
-            <Radio.Group className='w-full'>
+            <Radio.Group
+                defaultValue={paymentMethod}
+                className='w-full'
+                onChange={(e) => handleSetPaymentMethod(e.target.value)}
+            >
                 <FlexBetween
                     className='rounded-lg py-3 px-4 bg-gray-50'
                     style={{ border: "1px solid lightgray" }}

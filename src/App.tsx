@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { ProductApis } from "./apis/product";
 import { setAllProduct } from "./store/features/products";
 import CheckoutPage from "./pages/checkout";
+import OrderSuccessPage from "./pages/order/Success";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ function App() {
                 </Route>
                 <Route path="/my-cart" element={<MyShoppingCart />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/order-success" element={<OrderSuccessPage />} />
                 <Route path="/wishlist" element={<WishlistPage />} />
                 <Route path="/profile/:id" element={<ProfilePage />} />
                 <Route path="/*" element={<HomePage />} />

@@ -1,15 +1,19 @@
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { FC } from 'react'
 import { Button, Divider, Input } from 'antd'
 import FlexBetween from '../../../components/layout/flex/FlexBetween'
 import FlexCol from '../../../components/layout/flex/FlexCol'
-import { IStep } from '..'
+import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../../store/store'
 
 interface PriceSummaryProps {
-    activeStep: IStep,
-    setActiveStep: Dispatch<SetStateAction<IStep>>,
+    step: string
+    handleSetStep: (step: string) => void
 }
 
-const PriceSummary: FC<PriceSummaryProps> = ({ activeStep, setActiveStep }) => {
+const PriceSummary: FC<PriceSummaryProps> = ({ step, handleSetStep }) => {
+    const navigate = useNavigate();
+    const paymentMethod = useAppSelector(state => state.payment.paymentMethod);
+
     return (
         <div className='px-4 py-5 rounded-lg bg-white shadow-sm font-medium'>
             <h2>Price Summary</h2>
@@ -37,12 +41,14 @@ const PriceSummary: FC<PriceSummaryProps> = ({ activeStep, setActiveStep }) => {
                 size='large'
                 style={{ height: 50 }}
                 onClick={() => {
-                    if (!activeStep.firstStep) {
-                        setActiveStep({ firstStep: true, secondStep: true })
+                    if (step === "first") {
+                        handleSetStep("second");
+                    } else if (step === "second" && paymentMethod !== "") {
+                        navigate("/order-success");
                     }
                 }}
             >
-                {!activeStep.firstStep ? "Continue to payment" : "Confirm payment"}
+                {step === "first" ? "Continue to payment" : "Confirm payment"}
             </Button>
         </div>
     )
