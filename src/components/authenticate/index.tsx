@@ -31,7 +31,12 @@ const Authenticate = () => {
                     setOpenAuthen(false);
                     window.location.reload();
                     openNotiSuccess("Login");
-                    dispatch(setUserInfo({ user: jwtDecode(response), token: response }));
+                    dispatch(
+                        setUserInfo({
+                            user: jwtDecode(response),
+                            token: response,
+                        })
+                    );
                 })
                 .catch((error) => {
                     const { response } = error;
