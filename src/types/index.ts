@@ -47,32 +47,64 @@ export interface IImage {
 }
 
 export interface IReview {
-    id?: string,
-    _id?: string,
-    title?: string,
-    description?: string,
-    authorName?: string,
-    authorEmail?: string,
-    rate?: number,
-    reviewDate?: Date,
+    id?: string;
+    _id?: string;
+    title?: string;
+    description?: string;
+    authorName?: string;
+    authorEmail?: string;
+    rate?: number;
+    reviewDate?: Date;
 }
 
 export interface IWishlistShoe {
-    _id?: string,
-    id?: string,
-    shoeId?: string,
-    name?: string,
-    rate?: number,
-    shoeType?: string,
-    color?: string,
-    size?: number,
-    price?: number,
-    description?: string,
-    category?: string,
-    status?: string,
-    discountType?: string,
-    setDiscount?: string,
-    images?: IImage[],
-    createDate?: Date,
-    userId?: string,
+    _id?: string;
+    id?: string;
+    shoeId?: string;
+    name?: string;
+    rate?: number;
+    shoeType?: string;
+    color?: string;
+    size?: number;
+    price?: number;
+    description?: string;
+    category?: string;
+    status?: string;
+    discountType?: string;
+    setDiscount?: string;
+    images?: IImage[];
+    createDate?: Date;
+    userId?: string;
+}
+
+export interface IPurchasedProduct {
+    name?: string;
+    category?: string;
+    sku?: string;
+    size?: string;
+    image?: string;
+    color?: string;
+    quantity?: number;
+    price?: number | string;
+    total?: number | string;
+    transactionExt?: string;
+}
+
+export interface ITransaction {
+    id?: string;
+    _id?: string;
+    transactionNumber?: number | string;
+    date?: Date | string;
+    invoice?: string;
+    customerName?: string;
+    phoneNumber?: string | number;
+    status?: string;
+    receiptNumber?: string | number;
+    address?: string;
+    payment?: string;
+    purchasedProducts?: IPurchasedProduct[];
+    discount?: string;
+    shipping?: string | number;
+    tax?: string | number;
+    subTotal?: string | number;
 }
