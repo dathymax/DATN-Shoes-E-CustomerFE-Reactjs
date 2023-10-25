@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button, Divider, Input } from "antd";
+import { Button, Divider, Input, Select } from "antd";
 import FlexBetween from "../../../components/layout/flex/FlexBetween";
 import FlexCol from "../../../components/layout/flex/FlexCol";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,14 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step, handleSetStep }) => {
             <div className="h-[25px]"></div>
             <p className="mb-2">Promo Code</p>
             <div className="flex items-center gap-4">
-                <Input className="h-[40px]" />
+                <Select
+                    className="h-[40px] w-full"
+                    options={[{ label: "1", value: 1 }]}
+                    placeholder={"Select promo code"}
+                    mode="multiple"
+                    maxTagCount={"responsive"}
+                    allowClear
+                />
                 <Button
                     type="primary"
                     size="large"
