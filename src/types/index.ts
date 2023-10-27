@@ -7,7 +7,17 @@ export interface IUser {
     username?: string;
     password?: string;
     role?: string;
+    phoneNumber?: string;
+    address?: string;
+    addressLabel?: string;
+    country?: string;
+    province?: string;
+    district?: string;
+    postalCode?: string;
+    city?: string;
     avatar?: string;
+    updatedAt?: Date | string;
+    promoCodes?: IPromoCode[];
 }
 
 export interface IProduct {
@@ -107,4 +117,14 @@ export interface ITransaction {
     shipping?: string | number;
     tax?: string | number;
     subTotal?: string | number;
+}
+
+export interface IPromoCode {
+    id?: string;
+    _id?: string;
+    name: string;
+    spendTime?: number;
+    isExpired?: boolean;
+    createDate?: Date;
+    modifiedDate?: Date;
 }

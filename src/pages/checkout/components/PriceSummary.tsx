@@ -1,24 +1,42 @@
-import React, { FC } from "react";
-import { Button, Divider, Input, Select } from "antd";
+import React, { FC, useEffect, useState } from "react";
+import { Button, Divider, Select } from "antd";
 import FlexBetween from "../../../components/layout/flex/FlexBetween";
 import FlexCol from "../../../components/layout/flex/FlexCol";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { OptionProps } from "antd/es/select";
+import { UserApis } from "../../../apis/user";
+import { addPromoCodes } from "../../../store/features/cart";
 
 interface PriceSummaryProps {
     step: string;
     handleSetStep: (step: string) => void;
 }
 
-const PriceSummary: FC<PriceSummaryProps> = ({ step, handleSetStep }) => {
-    const navigate = useNavigate();
-    const paymentMethod = useAppSelector(
-        (state) => state.payment.paymentMethod
-    );
+const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
+    const dispatch = useAppDispatch();
+    const paymentMethod = useAppSelector((state) => state.cart.paymentMethod);
     const items = useAppSelector((state) => state.cart.items);
+    const userInfo = useAppSelector((state) => state.auth.userInfo);
+    const [promoCodes, setPromoCodes] = useState<OptionProps[]>([]);
+    const [promoCodesSelected, setPromoCodesSelected] = useState<string[]>([]);
 
     const handleClick = () => {
         console.log({ items, paymentMethod });
+    };
+
+    useEffect(() => {
+        UserApis.getUserById(userInfo.id).then((response) => {
+            setPromoCodes(
+                response?.data?.promoCodes?.map((promoCode: OptionProps) => ({
+                    label: promoCode?.name,
+                    value: promoCode?._id,
+                }))
+            );
+        });
+    }, [userInfo]);
+
+    const handleAddPromoCodes = () => {
+        dispatch(addPromoCodes(promoCodesSelected));
     };
 
     return (
@@ -29,16 +47,18 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step, handleSetStep }) => {
             <div className="flex items-center gap-4">
                 <Select
                     className="h-[40px] w-full"
-                    options={[{ label: "1", value: 1 }]}
+                    options={promoCodes}
                     placeholder={"Select promo code"}
                     mode="multiple"
                     maxTagCount={"responsive"}
                     allowClear
+                    onSelect={(values) => setPromoCodesSelected(values)}
                 />
                 <Button
                     type="primary"
                     size="large"
                     style={{ height: 40, width: 100 }}
+                    onClick={handleAddPromoCodes}
                 >
                     Add
                 </Button>
@@ -74,11 +94,6 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step, handleSetStep }) => {
                 size="large"
                 style={{ height: 50 }}
                 onClick={() => {
-                    // if (step === "first") {
-                    //     handleSetStep("second");
-                    // } else if (step === "second" && paymentMethod !== "") {
-                    //     navigate("/order-success");
-                    // }
                     handleClick();
                 }}
             >
