@@ -128,3 +128,21 @@ export interface IPromoCode {
     createDate?: Date;
     modifiedDate?: Date;
 }
+
+export enum EAddressLabel {
+    HOME = "home",
+    OFFICE = "office",
+}
+
+export interface IAddressShipping {
+    id?: string;
+    _id?: string;
+    addressLabel?: EAddressLabel;
+    country?: string;
+    address?: string;
+    province?: string;
+    city?: string;
+    district?: string;
+    postalCode?: string;
+    userId?: string;
+}
