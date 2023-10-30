@@ -2,10 +2,10 @@ import React, { FC, useEffect, useState } from "react";
 import { Button, Divider, Select } from "antd";
 import FlexBetween from "../../../components/layout/flex/FlexBetween";
 import FlexCol from "../../../components/layout/flex/FlexCol";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { useAppSelector } from "../../../store/store";
 import { OptionProps } from "antd/es/select";
 import { UserApis } from "../../../apis/user";
-import { addPromoCodes } from "../../../store/features/cart";
+import { TransactionApis } from "../../../apis/transaction";
 
 interface PriceSummaryProps {
     step: string;
@@ -13,15 +13,39 @@ interface PriceSummaryProps {
 }
 
 const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
-    const dispatch = useAppDispatch();
     const paymentMethod = useAppSelector((state) => state.cart.paymentMethod);
     const items = useAppSelector((state) => state.cart.items);
     const userInfo = useAppSelector((state) => state.auth.userInfo);
     const [promoCodes, setPromoCodes] = useState<OptionProps[]>([]);
-    const [promoCodesSelected, setPromoCodesSelected] = useState<string[]>([]);
+    const [promoCode, setPromoCode] = useState<string>();
+    const { create } = TransactionApis;
 
     const handleClick = () => {
-        console.log({ items, paymentMethod });
+        const values = {
+            customerName: `${userInfo.firstname} ${userInfo.lastname}`,
+            phoneNumber: userInfo.phoneNumber,
+            address: userInfo.address,
+            payment: paymentMethod,
+            tax: "",
+            subTotal: items.reduce((prev, curr) => Number(curr.totalPricePerItem) + Number(prev), 0),
+            shipping: 0,
+            discount: promoCode,
+            purchasedProducts: items.map(item => ({
+                name: item.product.name,
+                category: item.product.category,
+                sku: 1,
+                size: item.size,
+                image: item.product.images?.[0],
+                color: item.color,
+                quantity: item.quantity,
+                price: item.product.price,
+                total: item.totalPricePerItem
+            }))
+        }
+
+        create(values).then(() => {
+            console.log("success!")
+        })
     };
 
     useEffect(() => {
@@ -35,10 +59,6 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
         });
     }, [userInfo]);
 
-    const handleAddPromoCodes = () => {
-        dispatch(addPromoCodes(promoCodesSelected));
-    };
-
     return (
         <div className="px-4 py-5 rounded-lg bg-white shadow-sm font-medium">
             <h2>Price Summary</h2>
@@ -49,19 +69,9 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
                     className="h-[40px] w-full"
                     options={promoCodes}
                     placeholder={"Select promo code"}
-                    mode="multiple"
-                    maxTagCount={"responsive"}
                     allowClear
-                    onSelect={(values) => setPromoCodesSelected(values)}
+                    onChange={(values) => setPromoCode(values)}
                 />
-                <Button
-                    type="primary"
-                    size="large"
-                    style={{ height: 40, width: 100 }}
-                    onClick={handleAddPromoCodes}
-                >
-                    Add
-                </Button>
             </div>
             <Divider />
             <FlexCol gap={20}>

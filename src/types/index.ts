@@ -113,10 +113,12 @@ export interface ITransaction {
     address?: string;
     payment?: string;
     purchasedProducts?: IPurchasedProduct[];
-    discount?: string;
+    discount?: IPromoCode;
     shipping?: string | number;
     tax?: string | number;
     subTotal?: string | number;
+    reason?: string,
+    imagesRoof?: IImage[],
 }
 
 export interface IPromoCode {

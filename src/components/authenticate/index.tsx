@@ -28,15 +28,14 @@ const Authenticate = () => {
                 .then((response) => {
                     localStorage.setItem("accessToken", response);
                     setLoading(false);
-                    setOpenAuthen(false);
-                    window.location.reload();
-                    openNotiSuccess("Login");
                     dispatch(
                         setUserInfo({
                             user: jwtDecode(response),
                             token: response,
                         })
                     );
+                    setOpenAuthen(false);
+                    openNotiSuccess("Login");
                 })
                 .catch((error) => {
                     const { response } = error;
