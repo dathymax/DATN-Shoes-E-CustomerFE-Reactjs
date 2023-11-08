@@ -1,11 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import { Button, Divider, Select } from "antd";
+import { Button, Divider, Select, message } from "antd";
 import FlexBetween from "../../../components/layout/flex/FlexBetween";
 import FlexCol from "../../../components/layout/flex/FlexCol";
 import { useAppSelector } from "../../../store/store";
 import { OptionProps } from "antd/es/select";
 import { UserApis } from "../../../apis/user";
 import { TransactionApis } from "../../../apis/transaction";
+import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 interface PriceSummaryProps {
     step: string;
@@ -19,6 +21,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
     const [promoCodes, setPromoCodes] = useState<OptionProps[]>([]);
     const [promoCode, setPromoCode] = useState<string>();
     const { create } = TransactionApis;
+    const navigate = useNavigate();
 
     const handleClick = () => {
         const values = {
@@ -30,6 +33,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             subTotal: items.reduce((prev, curr) => Number(curr.totalPricePerItem) + Number(prev), 0),
             shipping: 0,
             discount: promoCode,
+            extCode: v4(),
             purchasedProducts: items.map(item => ({
                 name: item.product.name,
                 category: item.product.category,
@@ -39,12 +43,14 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
                 color: item.color,
                 quantity: item.quantity,
                 price: item.product.price,
-                total: item.totalPricePerItem
+                total: item.totalPricePerItem,
             }))
         }
 
         create(values).then(() => {
-            console.log("success!")
+            navigate("/order-success");
+        }).catch(() => {
+            message.error("Order failed!");
         })
     };
 
