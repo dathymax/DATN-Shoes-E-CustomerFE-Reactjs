@@ -36,6 +36,7 @@ const Authenticate = () => {
                     );
                     setOpenAuthen(false);
                     openNotiSuccess("Login");
+                    window.location.reload();
                 })
                 .catch((error) => {
                     const { response } = error;

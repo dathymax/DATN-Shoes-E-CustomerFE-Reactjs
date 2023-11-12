@@ -4,6 +4,8 @@ import AddressContent from './components/Address';
 import { useParams } from 'react-router-dom';
 import { getUserInfo } from '../../helpers';
 import { UserApis } from '../../apis/user';
+import OrderListContent from './components/OrderList';
+import OrderListTab from './components/items/OrderListTab';
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -47,11 +49,21 @@ const ProfilePage = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="col-span-2 bg-white p-5 rounded-lg">
-                    {active === "profile" ? <ProfileContent user={user} /> : <></>}
-                </div>
-                <div className="col-span-2 bg-white p-5 rounded-lg">
-                    {active === "profile" ? <AddressContent /> : <></>}
+                <div className="col-span-4 grid grid-cols-4 gap-5">
+                    {active === "profile" ? <>
+                        <div className="col-span-2 bg-white p-5 rounded-lg">
+                            <ProfileContent user={user} />
+                        </div>
+                        <div className="col-span-2 bg-white p-5 rounded-lg">
+                            <AddressContent />
+                        </div>
+                    </> : <></>}
+                    {active === "orderList" ? <>
+                        <div className='col-span-4 bg-white p-5 rounded-lg'>
+                            <OrderListTab />
+                        </div>
+                        <OrderListContent user={user} />
+                    </> : <></>}
                 </div>
             </div>
         </div>
