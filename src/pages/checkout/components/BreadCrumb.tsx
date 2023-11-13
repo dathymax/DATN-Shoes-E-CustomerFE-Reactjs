@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { GrLinkNext } from 'react-icons/gr'
 import { AiFillCheckSquare } from 'react-icons/ai';
 

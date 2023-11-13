@@ -1,6 +1,5 @@
 import ProductCartList from "../../components/product/cart/List";
 import ProductCartEmpty from "../../components/product/cart/Empty";
-import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";

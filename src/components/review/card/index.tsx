@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { IReview } from "../../../types";
 import { Rate } from "antd";
 import dayjs from "dayjs";

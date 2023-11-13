@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../../../assets/images/Logo-login.png";
 import { Checkbox, Form } from "antd";
 import InputCustom from "../../custom/data-entry/input/InputCustom";

@@ -1,5 +1,4 @@
 import { Form } from "antd";
-import React from "react";
 import InputCustom from "../../custom/data-entry/input/InputCustom";
 import InputPasswordCustom from "../../custom/data-entry/input/InputPasswordCustom";
 

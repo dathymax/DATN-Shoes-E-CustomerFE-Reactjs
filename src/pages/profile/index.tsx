@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProfileContent from './components/Profile';
 import AddressContent from './components/Address';
 import { useParams } from 'react-router-dom';

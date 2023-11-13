@@ -1,5 +1,5 @@
 import { Button, Form } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { IUser } from "../../types";
 import Login from "./login";
 import Register from "./register";

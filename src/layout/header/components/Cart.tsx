@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Cart from "../../../assets/images/Cart.png";
+import { useState } from "react";
 import { Button, Divider, Drawer } from "antd";
 import { useNavigate } from "react-router-dom";
 import ProductCartQuickView from "../../../components/product/cart/QuickView";

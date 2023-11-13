@@ -1,4 +1,3 @@
-import React from "react";
 import SaleNotification from "../../components/feedback/notification/sale";
 import Logo from "../../assets/images/Logo.png";
 import { Dropdown, Input, Modal, Spin } from "antd";

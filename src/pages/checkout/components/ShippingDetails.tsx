@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IAddressShipping } from "../../../types";
 import { AddressShippingApis } from "../../../apis/address-shipping";
 import { useAppSelector } from "../../../store/store";
@@ -21,7 +21,7 @@ const ShippingDetails = () => {
             .then((response) => {
                 setAddresses(response?.data);
             })
-            .catch(() => {});
+            .catch(() => { });
     }, []);
 
     return (

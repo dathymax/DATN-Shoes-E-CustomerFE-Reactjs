@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { IUser } from '../../../types'
 import { useSearchParams } from 'react-router-dom'
 import FlexBetween from '../../../components/layout/flex/FlexBetween'

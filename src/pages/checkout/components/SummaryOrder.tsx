@@ -1,4 +1,3 @@
-import React from 'react'
 import { useAppSelector } from '../../../store/store';
 import { Divider } from 'antd';
 import ProductCartOrdered from '../../../components/product/cart/Ordered';

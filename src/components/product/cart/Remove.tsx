@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import Remove from "../../../assets/images/cart/Remove.png"
 import { Button } from 'antd'
 import { useAppDispatch } from '../../../store/store'

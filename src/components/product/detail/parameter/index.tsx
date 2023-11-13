@@ -1,5 +1,5 @@
 import { Button, Divider, Modal } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
 import ColorParameter from "./Color";
 import SizeParamter from "./Size";

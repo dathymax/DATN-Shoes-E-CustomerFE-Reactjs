@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Fire from "../../../assets/images/Fire.png";
 import Heart from "../../../assets/images/HeartProduct.png";
 import HeartFill from "../../../assets/images/HeartFill.png";

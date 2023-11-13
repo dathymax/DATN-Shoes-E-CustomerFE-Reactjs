@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import AddressServices from "../services/Address";
 import Remove from "../../../../assets/images/profile/Remove.png";
 import { IAddressShipping } from "../../../../types";

@@ -1,4 +1,3 @@
-import React from "react";
 import ProductCarosel from "../../../components/product/carosel";
 import { Link } from "react-router-dom";
 import ProductCard from "../../../components/product/card";

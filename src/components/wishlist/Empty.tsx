@@ -1,4 +1,3 @@
-import React from 'react'
 import Empty from "../../assets/images/wishlist/Empty.png"
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'

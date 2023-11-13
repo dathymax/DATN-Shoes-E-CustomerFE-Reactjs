@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Product from "../../../assets/images/Product.png";
 import { CartItem } from "../../../store/features/cart";
 

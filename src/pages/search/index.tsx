@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Divider, Input } from "antd";
 import { CiSearch } from "react-icons/ci";
 import ProductList from "../../components/product/list";
