@@ -4,8 +4,16 @@ import { ITransaction } from "../../types";
 const url = "/transactions";
 
 export const TransactionApis = {
-    getAll: async function () {
+    getAll: async function (userId?: string) {
         const response = await Axios_instance.get(url);
+        return response?.data || [];
+    },
+    getAllByUserId: async function (userId?: string) {
+        const response = await Axios_instance.get(`${url}/${userId}`);
+        return response?.data || [];
+    },
+    getAllReturnsByUserId: async function (userId?: string) {
+        const response = await Axios_instance.get(`${url}/returns/${userId}`);
         return response?.data || [];
     },
     getById: async function (id?: string) {

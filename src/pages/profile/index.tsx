@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import ProfileContent from './components/Profile';
 import AddressContent from './components/Address';
 import { useParams } from 'react-router-dom';
-import { getUserInfo } from '../../helpers';
 import { UserApis } from '../../apis/user';
 import OrderListContent from './components/OrderList';
 import OrderListTab from './components/items/OrderListTab';
+import { useAppSelector } from '../../store/store';
 
 const ProfilePage = () => {
     const { id } = useParams();
-    const userInfo = getUserInfo();
+    const userInfo = useAppSelector(state => state.auth.userInfo);
     const [user, setUser] = useState({});
     const [active, setActive] = useState("profile");
 

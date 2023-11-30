@@ -30,7 +30,7 @@ const Authenticate = () => {
                     setLoading(false);
                     dispatch(
                         setUserInfo({
-                            user: jwtDecode(response),
+                            userInfo: jwtDecode(response),
                             token: response,
                         })
                     );

@@ -34,6 +34,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             address: userInfo.address,
             payment: paymentMethod,
             tax: "",
+            userId: userInfo?.id,
             subTotal: items.reduce((prev, curr) => Number(curr.totalPricePerItem) + Number(prev), 0),
             shipping: 0,
             discount: promoCode,

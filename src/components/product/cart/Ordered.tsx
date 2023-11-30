@@ -1,12 +1,12 @@
 import { FC } from "react";
 import Product from "../../../assets/images/Product.png";
-import { CartItem } from "../../../store/features/cart";
+import { IPurchasedProduct } from "../../../types";
 
 interface ProductCartOrderedProps {
-    cartItem: CartItem;
+    product: IPurchasedProduct;
 }
 
-const ProductCartOrdered: FC<ProductCartOrderedProps> = ({ cartItem }) => {
+const ProductCartOrdered: FC<ProductCartOrderedProps> = ({ product }) => {
     return (
         <div className="grid grid-cols-3 gap-3">
             <div className="col-span-1 h-[150px]">
@@ -18,13 +18,13 @@ const ProductCartOrdered: FC<ProductCartOrderedProps> = ({ cartItem }) => {
             </div>
             <div className="col-span-2 flex items-center justify-between flex-col gap-2">
                 <div className="w-full">
-                    <p className="text-[16px] mb-1">{cartItem?.product?.category}</p>
-                    <p className="font-medium text-[16px]">{cartItem?.product?.name}</p>
+                    <p className="text-[16px] mb-1">{product?.category}</p>
+                    <p className="font-medium text-[16px]">{product?.name}</p>
                 </div>
                 <div className="ml-4 flex items-center w-full text-[16px] mb-2">
-                    {cartItem.size} | <p className="capitalize ml-1 flex items-center gap-2">
-                        {cartItem.color}
-                        <p className="w-[25px] h-[25px] rounded-lg" style={{ background: cartItem.color }}></p>
+                    {product.size} | <p className="capitalize ml-1 flex items-center gap-2">
+                        {product.color}
+                        <p className="w-[25px] h-[25px] rounded-lg" style={{ background: product.color }}></p>
                     </p>
                 </div>
             </div>

@@ -11,19 +11,15 @@ const OrderListTab = () => {
             label: 'All',
         },
         {
-            key: 'waitingPayment',
-            label: 'Waiting Payment',
+            key: 'progress',
+            label: 'In Progress',
         },
         {
-            key: 'orderOnProcess',
-            label: 'Order On Process',
-        },
-        {
-            key: 'inDelivery',
+            key: 'delivering',
             label: 'In Delivery',
         },
         {
-            key: 'completeOrder',
+            key: 'completed',
             label: 'Complete Order',
         },
         {

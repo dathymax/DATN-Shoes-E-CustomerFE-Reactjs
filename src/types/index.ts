@@ -121,6 +121,7 @@ export interface ITransaction {
     subTotal?: string | number;
     reason?: string,
     imagesRoof?: IImage[],
+    userId?: string
 }
 
 export interface IPromoCode {
