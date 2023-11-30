@@ -1,20 +1,25 @@
 import { useEffect, useState } from 'react'
 import ProfileContent from './components/Profile';
 import AddressContent from './components/Address';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { UserApis } from '../../apis/user';
 import OrderListContent from './components/OrderList';
 import OrderListTab from './components/items/OrderListTab';
 import { useAppSelector } from '../../store/store';
+import OrderDetail from './components/items/Detail';
 
 const ProfilePage = () => {
     const { id } = useParams();
     const userInfo = useAppSelector(state => state.auth.userInfo);
     const [user, setUser] = useState({});
-    const [active, setActive] = useState("profile");
+    const [searchParams] = useSearchParams();
+    const active = searchParams.get("active") || "profile";
+    const navigate = useNavigate();
 
     const handleSetActive = (type: string) => {
-        setActive(type);
+        searchParams.set("active", type);
+
+        navigate(`?${searchParams.toString()}`);
     }
 
     useEffect(() => {
@@ -64,6 +69,8 @@ const ProfilePage = () => {
                         </div>
                         <OrderListContent user={user} />
                     </> : <></>}
+
+                    {active === "detail" ? <OrderDetail /> : <></>}
                 </div>
             </div>
         </div>

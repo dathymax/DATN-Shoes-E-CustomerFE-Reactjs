@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react'
 import { ITransaction, IUser } from '../../../types'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import FlexBetween from '../../../components/layout/flex/FlexBetween'
-import ProductCartOrdered from '../../../components/product/cart/Ordered'
 import { Button } from 'antd'
 import { TransactionApis } from '../../../apis/transaction'
 import { useAppContext } from '../../../contexts/AppContext'
 import { useAppSelector } from '../../../store/store'
+import ProductCartInTransaction from '../../../components/product/cart/InTransaction'
 
 interface OrderListContentProps {
     user?: IUser
@@ -19,12 +19,13 @@ const OrderListContent: FC<OrderListContentProps> = ({ user }) => {
     const { getAll } = TransactionApis;
     const { openNotiError } = useAppContext();
     const userInfo = useAppSelector(state => state.auth.userInfo);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAll(user?._id).then(response => {
             const data = response?.data;
 
-            if (orderListTabKey === "all") {
+            if (!orderListTabKey || orderListTabKey === "all") {
                 setItems(data?.filter((item: ITransaction) => item?.userId === userInfo.id));
             } else {
                 setItems(data?.filter((item: ITransaction) => item?.userId === userInfo.id && item?.status === orderListTabKey));
@@ -34,6 +35,12 @@ const OrderListContent: FC<OrderListContentProps> = ({ user }) => {
             openNotiError(response?.data?.message);
         });
     }, [orderListTabKey])
+
+    const handleShowDetail = (transactionId?: string) => {
+        searchParams.set("active", "detail");
+
+        navigate(`?${searchParams.toString()}&transactionId=${transactionId}`);
+    }
 
     return (
         items?.map(order => (
@@ -47,13 +54,18 @@ const OrderListContent: FC<OrderListContentProps> = ({ user }) => {
 
                 {order?.purchasedProducts?.map((product, index) => {
                     return (
-                        <ProductCartOrdered key={index} product={product} />
+                        <ProductCartInTransaction key={index} product={product} />
                     )
                 })}
 
-
                 <div className='text-right'>
-                    <Button type='primary' size='large'>Detail</Button>
+                    <Button
+                        type='primary'
+                        size='large'
+                        onClick={() => handleShowDetail(order?._id)}
+                    >
+                        Detail
+                    </Button>
                 </div>
             </div>
         ))

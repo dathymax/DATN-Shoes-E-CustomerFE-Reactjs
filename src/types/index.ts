@@ -115,7 +115,7 @@ export interface ITransaction {
     address?: string;
     payment?: string;
     purchasedProducts?: IPurchasedProduct[];
-    discount?: IPromoCode | string;
+    discount?: string | number;
     shipping?: string | number;
     tax?: string | number;
     subTotal?: string | number;

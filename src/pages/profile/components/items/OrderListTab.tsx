@@ -1,5 +1,4 @@
 import { Tabs } from 'antd';
-import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const OrderListTab = () => {
@@ -33,10 +32,6 @@ const OrderListTab = () => {
 
         navigate(`?${searchParams.toString()}`);
     };
-
-    useEffect(() => {
-        navigate(`?orderListTabKey=all`);
-    }, [])
 
     return (
         <>
