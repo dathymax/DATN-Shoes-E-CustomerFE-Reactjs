@@ -1,7 +1,7 @@
 import { Input, InputProps } from "antd";
-import React, { FC } from "react";
+import { FC } from "react";
 
-interface InputPasswordCustomProps extends InputProps {}
+interface InputPasswordCustomProps extends InputProps { }
 
 const InputPasswordCustom: FC<InputPasswordCustomProps> = ({ ...rest }) => {
     return (

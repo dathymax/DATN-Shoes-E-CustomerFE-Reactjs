@@ -1,5 +1,5 @@
 import { Button, Divider, Modal } from 'antd'
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import ProfileServices from './services/Profile';
 import { IUser } from '../../../types';
 

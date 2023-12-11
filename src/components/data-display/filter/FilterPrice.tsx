@@ -1,4 +1,3 @@
-import React from "react";
 import FilterCheckbox from "../../../components/data-display/filter/FilterCheckbox";
 import { useNavigate, useSearchParams } from "react-router-dom";
 

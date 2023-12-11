@@ -1,4 +1,3 @@
-import React from "react";
 import BestQuality from "../../../assets/images/more/BestQuality.png";
 import EasyPayment from "../../../assets/images/more/EasyPayment.png";
 import OnTime from "../../../assets/images/more/OnTime.png";

@@ -1,5 +1,5 @@
 import { Button, Col, Form, Input, Row } from 'antd';
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { UserApis } from '../../../../apis/user';
 import { useAppContext } from '../../../../contexts/AppContext';
 import { IUser } from '../../../../types';

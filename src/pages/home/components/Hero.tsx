@@ -1,5 +1,4 @@
 import { Button } from "antd";
-import React from "react";
 import ArrowRight from "../../../assets/images/ArrowRight.png";
 
 const HomePageHero = () => {

@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { genUploadUrl } from "../../../helpers";
 import { Divider } from "antd";

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import ProductCard from "../../../components/product/card";
 import { useAppSelector } from "../../../store/store";
 
-const HomePageBestSelling = () => {
+const HomePageNewArrived = () => {
     const items = useAppSelector(state => state.products.items);
 
     return (
         <ProductCarosel
-            title="Best selling"
+            title="New Arrived"
             extra={
                 <Link to={"/"} className="text-[12px] text-primary">
                     View more
@@ -28,4 +28,4 @@ const HomePageBestSelling = () => {
     );
 };
 
-export default HomePageBestSelling;
+export default HomePageNewArrived;

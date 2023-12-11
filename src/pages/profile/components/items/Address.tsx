@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import AddressServices from "../services/Address";
 import Remove from "../../../../assets/images/profile/Remove.png";
 import { IAddressShipping } from "../../../../types";
@@ -43,8 +43,15 @@ const AddressContentItem: FC<IAddressContentItem> = ({ address }) => {
     return (
         <>
             <div>
-                <p className='text-gray-400 mb-2 font-medium capitalize'>{address?.addressLabel}</p>
-                <p className='font-medium'>{address?.district}, {address?.province}, {address?.city}, {address?.country}</p>
+                <p className='text-gray-400 mb-2 font-medium capitalize'>
+                    {address?.addressLabel ? address?.addressLabel : ""}
+                </p>
+                <p className='font-medium'>
+                    {address?.district ? address?.district : ""}
+                    , {address?.province ? address?.province : ""}
+                    , {address?.city ? address?.city : ""}
+                    , {address?.country ? address?.country : ""}
+                </p>
                 <div className="flex items-center justify-end text-right gap-3 mt-2">
                     <p
                         className='font-medium text-primary cursor-pointer'

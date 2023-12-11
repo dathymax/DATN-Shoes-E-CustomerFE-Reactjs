@@ -1,4 +1,3 @@
-import React from "react";
 import { BsBank, BsCash, BsWallet } from "react-icons/bs";
 import FlexCenter from "../../../components/layout/flex/FlexCenter";
 import FlexBetween from "../../../components/layout/flex/FlexBetween";

@@ -1,5 +1,5 @@
 import { Button, Divider, Modal } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddressContentItem from './items/Address'
 import AddressServices from './services/Address';
 import { useParams } from 'react-router-dom';

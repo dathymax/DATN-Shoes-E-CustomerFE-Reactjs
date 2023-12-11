@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import ProductDetailImage from "../../../components/product/detail/Image";
 import ProductDetailParameter from "../../../components/product/detail/parameter";
 import Tabs from "../../../components/navigation/tabs";

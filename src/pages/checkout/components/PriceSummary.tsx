@@ -1,13 +1,15 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button, Divider, Select, message } from "antd";
 import FlexBetween from "../../../components/layout/flex/FlexBetween";
 import FlexCol from "../../../components/layout/flex/FlexCol";
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { OptionProps } from "antd/es/select";
 import { UserApis } from "../../../apis/user";
 import { TransactionApis } from "../../../apis/transaction";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../../contexts/AppContext";
+import { removeCart } from "../../../store/features/cart";
 
 interface PriceSummaryProps {
     step: string;
@@ -22,6 +24,8 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
     const [promoCode, setPromoCode] = useState<string>();
     const { create } = TransactionApis;
     const navigate = useNavigate();
+    const { setLoading } = useAppContext();
+    const dispatch = useAppDispatch();
 
     const handleClick = () => {
         const values = {
@@ -30,6 +34,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             address: userInfo.address,
             payment: paymentMethod,
             tax: "",
+            userId: userInfo?.id,
             subTotal: items.reduce((prev, curr) => Number(curr.totalPricePerItem) + Number(prev), 0),
             shipping: 0,
             discount: promoCode,
@@ -37,7 +42,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             purchasedProducts: items.map(item => ({
                 name: item.product.name,
                 category: item.product.category,
-                sku: 1,
+                sku: "1",
                 size: item.size,
                 image: item.product.images?.[0],
                 color: item.color,
@@ -47,11 +52,13 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             }))
         }
 
+        setLoading(true);
         create(values).then(() => {
             navigate("/order-success");
+            dispatch(removeCart());
         }).catch(() => {
             message.error("Order failed!");
-        })
+        }).finally(() => setLoading(false));
     };
 
     useEffect(() => {

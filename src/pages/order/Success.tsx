@@ -1,4 +1,3 @@
-import React from 'react'
 import { BsBank, BsCheckCircle } from 'react-icons/bs'
 import FlexCol from '../../components/layout/flex/FlexCol'
 import FlexCenter from '../../components/layout/flex/FlexCenter'

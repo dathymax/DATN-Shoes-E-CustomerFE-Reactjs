@@ -1,4 +1,3 @@
-import React from "react";
 import SaleNotification from "../../components/feedback/notification/sale";
 import Logo from "../../assets/images/Logo.png";
 import { Dropdown, Input, Modal, Spin } from "antd";
@@ -10,12 +9,12 @@ import { useAppContext } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../apis/auth";
 import { AiOutlineUser } from "react-icons/ai";
-import { getUserInfo } from "../../helpers";
 import Wishlist from "./components/Wishlist";
+import { useAppSelector } from "../../store/store";
 
 const Header = () => {
     const navigate = useNavigate();
-    const userInfo = getUserInfo();
+    const userInfo = useAppSelector(state => state.auth.userInfo);
     const {
         loading,
         openAuthen: open,

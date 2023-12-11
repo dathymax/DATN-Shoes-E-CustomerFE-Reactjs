@@ -1,5 +1,4 @@
 import { Button, Form, Input, Rate } from "antd";
-import React from "react";
 import { IReview } from "../../../types";
 import { ReviewApis } from "../../../apis/review";
 import { useAppContext } from "../../../contexts/AppContext";

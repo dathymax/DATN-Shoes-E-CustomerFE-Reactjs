@@ -1,4 +1,3 @@
-import React from "react";
 import FooterAddress from "./components/Address";
 import FooterSneakers from "./components/Sneakers";
 import FooterCustomerSerives from "./components/CustomerSerives";

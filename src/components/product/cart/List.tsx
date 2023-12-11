@@ -1,10 +1,8 @@
 import { Button, Divider } from "antd";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import ProductCartOrdered from "./Ordered";
-import ColorParameter from "../detail/parameter/Color";
-import SizeParamter from "../detail/parameter/Size";
 import ProductCartRemove from "./Remove";
 import CustomModal from "../../feedback/modal";
 import { CartItem } from "../../../store/features/cart";

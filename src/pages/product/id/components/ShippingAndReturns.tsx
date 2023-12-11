@@ -1,5 +1,3 @@
-import React from "react";
-
 const ShippingAndReturns = () => {
     return (
         <div className="grid grid-cols-12 gap-5">

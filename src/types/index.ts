@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface IUser {
     _id?: string;
     id?: string;
@@ -88,13 +90,13 @@ export interface IWishlistShoe {
 }
 
 export interface IPurchasedProduct {
-    name?: string;
+    name?: React.ReactNode | string;
     category?: string;
     sku?: string;
-    size?: string;
-    image?: string;
+    size?: string | number;
+    image?: string | IImage;
     color?: string;
-    quantity?: number;
+    quantity?: number | string;
     price?: number | string;
     total?: number | string;
     transactionExt?: string;
@@ -113,12 +115,13 @@ export interface ITransaction {
     address?: string;
     payment?: string;
     purchasedProducts?: IPurchasedProduct[];
-    discount?: IPromoCode;
+    discount?: string | number;
     shipping?: string | number;
     tax?: string | number;
     subTotal?: string | number;
     reason?: string,
     imagesRoof?: IImage[],
+    userId?: string
 }
 
 export interface IPromoCode {

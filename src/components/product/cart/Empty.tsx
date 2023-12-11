@@ -1,4 +1,3 @@
-import React from 'react'
 import NoOrder from "../../../assets/images/cart/NoOrder.png";
 import { Button } from "antd";
 

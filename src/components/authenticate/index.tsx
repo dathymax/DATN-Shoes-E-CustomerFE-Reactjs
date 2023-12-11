@@ -1,5 +1,5 @@
 import { Button, Form } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { IUser } from "../../types";
 import Login from "./login";
 import Register from "./register";
@@ -30,12 +30,13 @@ const Authenticate = () => {
                     setLoading(false);
                     dispatch(
                         setUserInfo({
-                            user: jwtDecode(response),
+                            userInfo: jwtDecode(response),
                             token: response,
                         })
                     );
                     setOpenAuthen(false);
                     openNotiSuccess("Login");
+                    window.location.reload();
                 })
                 .catch((error) => {
                     const { response } = error;

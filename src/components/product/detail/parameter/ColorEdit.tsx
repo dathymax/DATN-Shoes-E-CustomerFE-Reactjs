@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import "./style.css";
 import { AiOutlineCheck } from "react-icons/ai"
 

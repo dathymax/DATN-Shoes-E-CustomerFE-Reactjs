@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import SearchPageFilterPrice from "../../components/data-display/filter/FilterPrice";
 import SearchPageFilterBrand from "../../components/data-display/filter/FilterBrand";
 import SearchPageFilterSize from "../../components/data-display/filter/FilterSize";

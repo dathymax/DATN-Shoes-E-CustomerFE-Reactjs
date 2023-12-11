@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProfileContent from './components/Profile';
 import AddressContent from './components/Address';
-import { useParams } from 'react-router-dom';
-import { getUserInfo } from '../../helpers';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { UserApis } from '../../apis/user';
+import OrderListContent from './components/OrderList';
+import OrderListTab from './components/items/OrderListTab';
+import { useAppSelector } from '../../store/store';
+import OrderDetail from './components/items/Detail';
 
 const ProfilePage = () => {
     const { id } = useParams();
-    const userInfo = getUserInfo();
+    const userInfo = useAppSelector(state => state.auth.userInfo);
     const [user, setUser] = useState({});
-    const [active, setActive] = useState("profile");
+    const [searchParams] = useSearchParams();
+    const active = searchParams.get("active") || "profile";
+    const navigate = useNavigate();
 
     const handleSetActive = (type: string) => {
-        setActive(type);
+        searchParams.set("active", type);
+
+        navigate(`?${searchParams.toString()}`);
     }
 
     useEffect(() => {
@@ -47,11 +54,23 @@ const ProfilePage = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="col-span-2 bg-white p-5 rounded-lg">
-                    {active === "profile" ? <ProfileContent user={user} /> : <></>}
-                </div>
-                <div className="col-span-2 bg-white p-5 rounded-lg">
-                    {active === "profile" ? <AddressContent /> : <></>}
+                <div className="col-span-4 grid grid-cols-4 gap-5">
+                    {active === "profile" ? <>
+                        <div className="col-span-2 bg-white p-5 rounded-lg">
+                            <ProfileContent user={user} />
+                        </div>
+                        <div className="col-span-2 bg-white p-5 rounded-lg">
+                            <AddressContent />
+                        </div>
+                    </> : <></>}
+                    {active === "orderList" ? <>
+                        <div className='col-span-4 bg-white p-5 rounded-lg'>
+                            <OrderListTab />
+                        </div>
+                        <OrderListContent user={user} />
+                    </> : <></>}
+
+                    {active === "detail" ? <OrderDetail /> : <></>}
                 </div>
             </div>
         </div>

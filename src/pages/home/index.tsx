@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./index.css";
 import HomePageHero from "./components/Hero";
 import HomePageBestSelling from "./components/BestSelling";
@@ -7,6 +7,8 @@ import Native from "../../assets/images/Native.png";
 import HomePageGallery from "./components/Gallery";
 import HomePageNews from "./components/News";
 import HomePageTreatment from "./components/Treatment";
+import HomePageNewArrived from "./components/NewArrived";
+import HomePageFlashSale from "./components/FlashSale";
 
 const HomePage = () => {
 
@@ -28,9 +30,9 @@ const HomePage = () => {
                     className="rounded-lg w-full object-cover"
                 />
                 <div className="h-[70px]"></div>
-                <HomePageBestSelling />
+                <HomePageNewArrived />
                 <div className="h-[70px]"></div>
-                <HomePageBestSelling />
+                <HomePageFlashSale />
                 <div className="h-[70px]"></div>
                 <HomePageGallery />
                 <div className="h-[70px]"></div>

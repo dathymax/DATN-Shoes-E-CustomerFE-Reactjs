@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import CheckoutPageBreadcrumb from './components/BreadCrumb'
 import SummaryOrder from './components/SummaryOrder';
 import ShippingDetails from './components/ShippingDetails';

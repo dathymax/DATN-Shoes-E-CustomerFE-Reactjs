@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProductCard from '../../components/product/card'
 import WishlistEmpty from '../../components/wishlist/Empty';
 import { useAppSelector } from '../../store/store';
