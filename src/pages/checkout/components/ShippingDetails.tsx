@@ -34,6 +34,7 @@ const ShippingDetails = () => {
                 size="large"
                 placeholder="Choose shipping address"
                 options={mapOptions(addresses)}
+                allowClear
             />
         </div>
     );
