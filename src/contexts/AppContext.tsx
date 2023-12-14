@@ -1,28 +1,36 @@
-import { Spin, notification } from 'antd';
-import React, { PropsWithChildren, useContext, useMemo, useState } from 'react'
+import { Spin, notification } from "antd";
+import React, { FC, useContext, useMemo, useState } from "react";
 
 interface IAppContext {
-    loading: boolean,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    openAuthen: boolean,
-    setOpenAuthen: React.Dispatch<React.SetStateAction<boolean>>,
-    openNotiSuccess: (title?: string, description?: string) => void,
-    openNotiError: (title?: string, description?: string) => void,
+    loading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    openAuthen: boolean;
+    setOpenAuthen: React.Dispatch<React.SetStateAction<boolean>>;
+    openNotiSuccess: (title?: string, description?: string) => void;
+    openNotiError: (title?: string, description?: string) => void;
 }
 
-export const AppContext = React.createContext<IAppContext | undefined>(undefined);
+export const AppContext = React.createContext<IAppContext | undefined>(
+    undefined
+);
 
 export const useAppContext = () => {
     const context = useContext(AppContext);
 
     if (!context) {
-        throw new Error("useAppContext must be used within AppContextProvider!");
+        throw new Error(
+            "useAppContext must be used within AppContextProvider!"
+        );
     }
 
     return context;
+};
+
+interface AppContextProps {
+    children: React.ReactNode;
 }
 
-const AppContextProvider = ({ children }: PropsWithChildren<{}>) => {
+const AppContextProvider: FC<AppContextProps> = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [openAuthen, setOpenAuthen] = useState(false);
     const [api, contextHolder] = notification.useNotification();
@@ -43,20 +51,24 @@ const AppContextProvider = ({ children }: PropsWithChildren<{}>) => {
         });
     };
 
-    const values = useMemo(() => ({
-        loading, openAuthen,
-        openNotiSuccess, setLoading,
-        setOpenAuthen, openNotiError
-    }), [loading, openAuthen])
+    const values = useMemo(
+        () => ({
+            loading,
+            openAuthen,
+            openNotiSuccess,
+            setLoading,
+            setOpenAuthen,
+            openNotiError,
+        }),
+        [loading, openAuthen]
+    );
 
     return (
         <AppContext.Provider value={values}>
-            <Spin spinning={loading}>
-                {children}
-            </Spin>
+            <Spin spinning={loading}>{children}</Spin>
             {contextHolder}
         </AppContext.Provider>
-    )
-}
+    );
+};
 
-export default AppContextProvider
+export default AppContextProvider;

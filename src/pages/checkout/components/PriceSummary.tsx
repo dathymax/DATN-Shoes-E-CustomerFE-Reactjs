@@ -9,7 +9,7 @@ import { TransactionApis } from "../../../apis/transaction";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../contexts/AppContext";
-import { removeCart } from "../../../store/features/cart";
+import { CartItem, removeCart } from "../../../store/features/cart";
 
 interface PriceSummaryProps {
     step: string;
@@ -26,6 +26,10 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
     const navigate = useNavigate();
     const { setLoading } = useAppContext();
     const dispatch = useAppDispatch();
+    const total = items.reduce(
+        (total: number, curr: CartItem) => (total += curr.totalPricePerItem),
+        0
+    );
 
     const handleClick = () => {
         const values = {
@@ -35,11 +39,14 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             payment: paymentMethod,
             tax: "",
             userId: userInfo?.id,
-            subTotal: items.reduce((prev, curr) => Number(curr.totalPricePerItem) + Number(prev), 0),
+            subTotal: items.reduce(
+                (prev, curr) => Number(curr.totalPricePerItem) + Number(prev),
+                0
+            ),
             shipping: 0,
             discount: promoCode,
             extCode: v4(),
-            purchasedProducts: items.map(item => ({
+            purchasedProducts: items.map((item) => ({
                 name: item.product.name,
                 category: item.product.category,
                 sku: "1",
@@ -49,16 +56,19 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
                 quantity: item.quantity,
                 price: item.product.price,
                 total: item.totalPricePerItem,
-            }))
-        }
+            })),
+        };
 
         setLoading(true);
-        create(values).then(() => {
-            navigate("/order-success");
-            dispatch(removeCart());
-        }).catch(() => {
-            message.error("Order failed!");
-        }).finally(() => setLoading(false));
+        create(values)
+            .then(() => {
+                navigate("/order-success");
+                dispatch(removeCart());
+            })
+            .catch(() => {
+                message.error("Order failed!");
+            })
+            .finally(() => setLoading(false));
     };
 
     useEffect(() => {
@@ -90,25 +100,25 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             <FlexCol gap={20}>
                 <FlexBetween>
                     <p>Total Shopping</p>
-                    <p>$ 1,800.00</p>
+                    <p>$ {total}</p>
                 </FlexBetween>
                 <FlexBetween>
                     <p>Shipping</p>
-                    <p>$ 10.00</p>
+                    <p>$ 0</p>
                 </FlexBetween>
                 <FlexBetween>
                     <p>Tax</p>
-                    <p>$ 10.00</p>
+                    <p>$ 0</p>
                 </FlexBetween>
                 <FlexBetween className="text-primary">
                     <p>Discount</p>
-                    <p>-$ 50.00</p>
+                    <p>-$ 0</p>
                 </FlexBetween>
             </FlexCol>
             <Divider />
             <FlexBetween className="text-[20px]">
                 <p>Subtotal</p>
-                <p>$ 1,770.00</p>
+                <p>$ {total}</p>
             </FlexBetween>
             <Divider />
             <Button

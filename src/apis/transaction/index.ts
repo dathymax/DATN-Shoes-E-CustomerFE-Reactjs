@@ -4,7 +4,7 @@ import { ITransaction } from "../../types";
 const url = "/transactions";
 
 export const TransactionApis = {
-    getAll: async function (userId?: string) {
+    getAll: async function () {
         const response = await Axios_instance.get(url);
         return response?.data || [];
     },
@@ -39,6 +39,10 @@ export const TransactionApis = {
         const response = await Axios_instance.delete(
             `${url}/${id}/${transactionExt}`
         );
+        return response?.data || {};
+    },
+    updateTransactionById: async function (id?: string, values?: ITransaction) {
+        const response = await Axios_instance.patch(`${url}/${id}`, values);
         return response?.data || {};
     },
 };

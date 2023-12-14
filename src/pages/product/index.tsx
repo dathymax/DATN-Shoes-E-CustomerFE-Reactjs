@@ -5,7 +5,6 @@ import SearchPageFilterSize from "../../components/data-display/filter/FilterSiz
 import ProductList from "../../components/product/list";
 
 const AllProductPage = () => {
-
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -17,12 +16,12 @@ const AllProductPage = () => {
             </h1>
             <div className="h-[80px]"></div>
             <div className="grid grid-cols-12 gap-5">
-                <div className="col-span-3">
+                {/* <div className="col-span-3">
                     <SearchPageFilterPrice />
                     <SearchPageFilterBrand />
                     <SearchPageFilterSize />
-                </div>
-                <div className="col-span-9">
+                </div> */}
+                <div className="col-span-12">
                     <ProductList />
                 </div>
             </div>

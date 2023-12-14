@@ -69,3 +69,14 @@ export function getRandomElementsFromArray(arr: any[], n: number) {
 export function genUploadUrl(fileName?: string) {
     return `${UPLOAD_URL}/${fileName}`;
 }
+
+export const convertStatus = (status?: string) => {
+    switch (status) {
+        case "delivering":
+            return "In Delivering";
+        case "packed":
+            return "Packed";
+        default:
+            break;
+    }
+};
