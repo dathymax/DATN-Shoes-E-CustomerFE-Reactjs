@@ -51,7 +51,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
                 category: item.product.category,
                 sku: "1",
                 size: item.size,
-                image: item.product.images?.[0],
+                image: item.product.images?.[0]?.fileName,
                 color: item.color,
                 quantity: item.quantity,
                 price: item.product.price,
