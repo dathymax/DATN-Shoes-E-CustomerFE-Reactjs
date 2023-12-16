@@ -7,9 +7,10 @@ import { OptionProps } from "antd/es/select";
 import { UserApis } from "../../../apis/user";
 import { TransactionApis } from "../../../apis/transaction";
 import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppContext } from "../../../contexts/AppContext";
 import { CartItem, removeCart } from "../../../store/features/cart";
+import { ProductApis } from "../../../apis/product";
 
 interface PriceSummaryProps {
     step: string;
@@ -21,15 +22,24 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
     const items = useAppSelector((state) => state.cart.items);
     const userInfo = useAppSelector((state) => state.auth.userInfo);
     const [promoCodes, setPromoCodes] = useState<OptionProps[]>([]);
-    const [promoCode, setPromoCode] = useState<string>();
     const { create } = TransactionApis;
     const navigate = useNavigate();
     const { setLoading } = useAppContext();
     const dispatch = useAppDispatch();
     const total = items.reduce(
-        (total: number, curr: CartItem) => (total += curr.totalPricePerItem),
+        (total: number, curr: CartItem) =>
+            (total += Number(curr.totalPricePerItem) * Number(curr.quantity)),
         0
     );
+    const [searchParams] = useSearchParams();
+    const discount = searchParams.get("discount") || 0;
+    const discountPrice = (total * Number(discount)) / 100;
+    const subTotal = discount !== 0 ? total - discountPrice : total;
+
+    useEffect(() => {
+        searchParams.set("discount", "0");
+        navigate(`?${searchParams.toString()}`);
+    }, []);
 
     const handleClick = () => {
         const values = {
@@ -39,14 +49,12 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             payment: paymentMethod,
             tax: "",
             userId: userInfo?.id,
-            subTotal: items.reduce(
-                (prev, curr) => Number(curr.totalPricePerItem) + Number(prev),
-                0
-            ),
+            subTotal: subTotal,
             shipping: 0,
-            discount: promoCode,
+            discount: discount,
             extCode: v4(),
             purchasedProducts: items.map((item) => ({
+                productId: item.product._id,
                 name: item.product.name,
                 category: item.product.category,
                 sku: "1",
@@ -62,6 +70,17 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
         setLoading(true);
         create(values)
             .then(() => {
+                items?.map((item) => {
+                    ProductApis.updateProductById(item?.product?._id, {
+                        quantity:
+                            Number(item.product.quantity) -
+                            Number(item.quantity),
+                    })
+                        .then((response) => {
+                            console.log(response?.data);
+                        })
+                        .catch(() => {});
+                });
                 navigate("/order-success");
                 dispatch(removeCart());
             })
@@ -76,11 +95,20 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
             setPromoCodes(
                 response?.data?.promoCodes?.map((promoCode: OptionProps) => ({
                     label: promoCode?.name,
-                    value: promoCode?._id,
+                    value: promoCode?.discount,
                 }))
             );
         });
     }, [userInfo]);
+
+    const handleChangePromoCode = (code: string) => {
+        if (code) {
+            searchParams.set("discount", code);
+        } else {
+            searchParams.set("discount", "0");
+        }
+        navigate(`?${searchParams.toString()}`);
+    };
 
     return (
         <div className="px-4 py-5 rounded-lg bg-white shadow-sm font-medium">
@@ -93,7 +121,7 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
                     options={promoCodes}
                     placeholder={"Select promo code"}
                     allowClear
-                    onChange={(values) => setPromoCode(values)}
+                    onChange={handleChangePromoCode}
                 />
             </div>
             <Divider />
@@ -112,13 +140,13 @@ const PriceSummary: FC<PriceSummaryProps> = ({ step }) => {
                 </FlexBetween>
                 <FlexBetween className="text-primary">
                     <p>Discount</p>
-                    <p>-$ 0</p>
+                    <p>- {discount ? discount : 0}%</p>
                 </FlexBetween>
             </FlexCol>
             <Divider />
             <FlexBetween className="text-[20px]">
                 <p>Subtotal</p>
-                <p>$ {total}</p>
+                <p>$ {subTotal}</p>
             </FlexBetween>
             <Divider />
             <Button

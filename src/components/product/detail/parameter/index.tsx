@@ -7,7 +7,7 @@ import DescriptionParameter from "./Description";
 import { AiOutlineZoomIn, AiOutlineShoppingCart } from "react-icons/ai";
 import ProductCartQuickView from "../../../../components/product/cart/QuickView";
 import ProductCartSubTotal from "../../../../components/product/cart/SubTotal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { genUploadUrl } from "../../../../helpers";
 import { WishlistApis } from "../../../../apis/wishlist";
@@ -16,24 +16,31 @@ import { addToCart } from "../../../../store/features/cart";
 
 const ProductDetailParameter = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.auth.userInfo);
     const [open, setOpen] = useState(false);
     const [openPreview, setOpenPreview] = useState(false);
     const item = useAppSelector((state) => state.products.item);
     const { openNotiError, openNotiSuccess } = useAppContext();
+    const items = useAppSelector((state) => state.cart.items);
 
     const handleOpen = () => {
         setOpen(true);
-        dispatch(
-            addToCart({
-                product: item,
-                quantity: 1,
-                totalPricePerItem: Number(item.price) * 1,
-                color: item?.colors,
-                size: item?.sizes,
-            })
+        const existProduct = items.findIndex(
+            (item) => item?.product?._id === id
         );
+        if (existProduct === -1) {
+            dispatch(
+                addToCart({
+                    product: item,
+                    quantity: 1,
+                    totalPricePerItem: Number(item.price) * 1,
+                    color: item?.colors,
+                    size: item?.sizes,
+                })
+            );
+        }
     };
 
     const handleClose = () => {

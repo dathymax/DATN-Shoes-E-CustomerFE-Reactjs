@@ -7,12 +7,14 @@ import ShippingAndReturns from "./components/ShippingAndReturns";
 import HomePageBestSelling from "../../home/components/BestSelling";
 import { useAppDispatch } from "../../../store/store";
 import { ProductApis } from "../../../apis/product";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { setProduct } from "../../../store/features/products";
 
 const ProductDetailPage = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -20,11 +22,15 @@ const ProductDetailPage = () => {
 
     useEffect(() => {
         if (id) {
-            ProductApis.getProductById(id).then(response => {
-                dispatch(setProduct(response?.data));
-            })
+            ProductApis.getProductById(id)
+                .then((response) => {
+                    dispatch(setProduct(response?.data));
+                    searchParams.set("quantity", response?.data?.quantity);
+                    navigate(`?${searchParams.toString()}`);
+                })
+                .catch(() => {});
         }
-    }, [id])
+    }, [id]);
 
     return (
         <div className="container m-auto p-10">

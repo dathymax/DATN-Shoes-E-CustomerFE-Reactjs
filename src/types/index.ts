@@ -91,6 +91,7 @@ export interface IWishlistShoe {
 }
 
 export interface IPurchasedProduct {
+    productId?: string;
     name?: React.ReactNode | string;
     category?: string;
     sku?: string;

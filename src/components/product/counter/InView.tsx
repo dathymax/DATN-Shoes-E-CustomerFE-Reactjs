@@ -1,25 +1,33 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { updateProductInCart } from "../../../store/features/cart";
 
-interface ProductCounterInViewProps {
-    initCount: number | string
-}
-
-const ProductCounterInView: FC<ProductCounterInViewProps> = ({ initCount }) => {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        setCount(Number(initCount))
-    }, [])
+const ProductCounterInView = () => {
+    const [count, setCount] = useState(1);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [searchParams] = useSearchParams();
+    const quantity = searchParams.get("quantity") || 0;
 
     const increase = () => {
-        setCount((prev) => prev + 1);
+        if (count < Number(quantity)) {
+            setCount((prev) => prev + 1);
+        }
     };
 
     const deincrease = () => {
-        if (count > 0) {
+        if (count > 1) {
             setCount((prev) => prev - 1);
         }
     };
+
+    useEffect(() => {
+        dispatch(updateProductInCart({ id, quantity: count }));
+        searchParams.set("orderQuantity", count.toString());
+        navigate(`?${searchParams.toString()}`);
+    }, [count]);
 
     return (
         <div
