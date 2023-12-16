@@ -9,11 +9,13 @@ const ProductList = () => {
     const items = useAppSelector((state) => state.products.items);
 
     const itemFiltered = useMemo(() => {
-        return items.filter((item) =>
-            item?.name
-                ?.toString()
-                ?.toLowerCase()
-                ?.includes(search?.toLowerCase())
+        return items.filter(
+            (item) =>
+                item?.name
+                    ?.toString()
+                    ?.toLowerCase()
+                    ?.includes(search?.toLowerCase()) &&
+                item?.status === "active"
         );
     }, [search]);
 

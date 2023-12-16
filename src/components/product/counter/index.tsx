@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 const ProductCounter = () => {
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
     const [count, setCount] = useState(0);
 
     const increase = () => {
@@ -13,12 +10,6 @@ const ProductCounter = () => {
     const deincrease = () => {
         setCount((prev) => prev - 1);
     };
-
-    useEffect(() => {
-        searchParams.set("counter", count.toString());
-
-        navigate(`?${searchParams.toString()}`)
-    }, [count])
 
     return (
         <div

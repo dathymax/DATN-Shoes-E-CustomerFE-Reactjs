@@ -34,13 +34,14 @@ export interface IProduct {
     name?: string | React.ReactNode;
     rate?: number;
     shoeType?: string;
-    color?: string;
-    size?: number;
+    colors?: string;
+    sizes?: number;
     description?: string;
     category?: string;
     status?: string | boolean | React.ReactNode;
     discountType?: string;
     setDiscount?: string;
+    quantity?: string | number;
 }
 
 export interface IPasswordReset {
@@ -119,9 +120,9 @@ export interface ITransaction {
     shipping?: string | number;
     tax?: string | number;
     subTotal?: string | number;
-    reason?: string,
-    imagesRoof?: IImage[],
-    userId?: string
+    reason?: string;
+    imagesRoof?: IImage[];
+    userId?: string;
 }
 
 export interface IPromoCode {
@@ -150,4 +151,11 @@ export interface IAddressShipping {
     district?: string;
     postalCode?: string;
     userId?: string;
+}
+
+export interface IColor {
+    name?: string;
+    id?: string;
+    _id?: string;
+    preview?: React.ReactNode;
 }

@@ -5,8 +5,8 @@ import { RootState } from "../store";
 export interface CartItem {
     product: IProduct;
     quantity: number | string;
-    color: string;
-    size: number | string;
+    color?: string;
+    size?: number | string;
     totalPricePerItem: number;
 }
 

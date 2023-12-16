@@ -4,7 +4,7 @@ import ProductCard from "../../../components/product/card";
 import { useAppSelector } from "../../../store/store";
 
 const HomePageBestSelling = () => {
-    const items = useAppSelector(state => state.products.items);
+    const items = useAppSelector((state) => state.products.items);
 
     return (
         <ProductCarosel
@@ -18,7 +18,10 @@ const HomePageBestSelling = () => {
                 return {
                     key: item._id,
                     content: (
-                        <Link to={`/products/${item._id}`} className="block m-3">
+                        <Link
+                            to={`/products/${item._id}`}
+                            className="block m-3"
+                        >
                             <ProductCard product={item} />
                         </Link>
                     ),
