@@ -68,6 +68,7 @@ export interface IReview {
     authorEmail?: string;
     rate?: number;
     reviewDate?: Date;
+    productId?: string;
 }
 
 export interface IWishlistShoe {

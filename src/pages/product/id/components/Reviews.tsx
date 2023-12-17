@@ -1,19 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ReviewCard from "../../../../components/review/card";
 import ReviewService from "../../../../components/review/card/Service";
 import { ReviewApis } from "../../../../apis/review";
-import { IReview } from "../../../../types";
-import { getRandomElementsFromArray } from "../../../../helpers";
+import { useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { setAllReviews } from "../../../../store/features/reviews";
 
 const ProductDetailReviews = () => {
-    const [reviews, setReviews] = useState<IReview[]>([]);
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
+    const items = useAppSelector((state) => state.review.items);
 
     useEffect(() => {
-        ReviewApis.getAllReviews()
+        ReviewApis.getAllReviews(id)
             .then((response) => {
-                setReviews(response?.data);
+                dispatch(setAllReviews(response?.data));
             })
-            .catch(() => { });
+            .catch(() => {});
     }, []);
 
     return (
@@ -21,8 +24,8 @@ const ProductDetailReviews = () => {
             <div className="col-span-3">
                 <ReviewService />
             </div>
-            {reviews.length > 0 &&
-                reviews.map((review) => {
+            {items?.length > 0 &&
+                items?.slice(0, 2)?.map((review) => {
                     return (
                         <div key={review?._id} className="col-span-3">
                             <ReviewCard review={review} />

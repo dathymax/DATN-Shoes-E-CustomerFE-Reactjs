@@ -1,11 +1,19 @@
-import { Button } from "antd";
+import { Button, Rate } from "antd";
 import { useState } from "react";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import ServiceForm from "./ServiceForm";
 import CustomModal from "../../feedback/modal";
+import { useAppSelector } from "../../../store/store";
+import { IReview } from "../../../types";
 
 const ReviewService = () => {
     const [open, setOpen] = useState(false);
+    const item = useAppSelector((state) => state.products.item);
+    const items = useAppSelector((state) => state.review.items);
+    const totalRate = items?.reduce(
+        (prev: number, curr: IReview) => prev + Number(curr.rate),
+        0
+    );
+    const mediumRate = totalRate / items?.length;
 
     const handleOpen = () => {
         setOpen(true);
@@ -18,23 +26,17 @@ const ReviewService = () => {
     return (
         <div className="h-[400px] bg-primary rounded-lg px-3 py-8 flex items-center flex-col justify-between text-white">
             <div>
-                <h3 className="mb-3 text-[25px]">Women Sweet Sweater</h3>
-                <p className="text-[40px] font-medium text-center mb-4">4.7</p>
+                <h3 className="mb-3 text-[25px] text-center">{item.name}</h3>
+                <p className="text-[40px] font-medium text-center mb-4">
+                    {mediumRate}
+                </p>
                 <div className="text-center mb-4">
-                    <AiFillStar className="text-yellow-500" />
-                    <AiFillStar className="text-yellow-500" />
-                    <AiFillStar className="text-yellow-500" />
-                    <AiFillStar className="text-yellow-500" />
-                    <AiOutlineStar />
+                    <Rate value={mediumRate} disabled />
                 </div>
                 <p className="text-center">
-                    Overall rating based on 198 reviews
+                    Overall rating based on {items?.length} reviews
                 </p>
                 <div className="h-[50px]"></div>
-                <p className="text-center">
-                    <span className="font-bold">398</span> products have been
-                    sold
-                </p>
                 <div className="h-[50px]"></div>
                 <Button
                     size="large"

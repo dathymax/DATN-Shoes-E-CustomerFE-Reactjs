@@ -2,12 +2,19 @@ import { Button, Form, Input, Rate } from "antd";
 import { IReview } from "../../../types";
 import { ReviewApis } from "../../../apis/review";
 import { useAppContext } from "../../../contexts/AppContext";
+import { useParams } from "react-router-dom";
 
 const ServiceForm = () => {
+    const { id } = useParams();
     const [form] = Form.useForm();
     const { openNotiError, openNotiSuccess } = useAppContext();
 
     const onFinish = (values: IReview) => {
+        values = {
+            ...values,
+            productId: id,
+        };
+
         ReviewApis.createReview(values)
             .then(() => {
                 openNotiSuccess("Create review");
