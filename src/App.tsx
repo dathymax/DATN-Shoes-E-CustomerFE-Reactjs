@@ -13,6 +13,7 @@ import { ProductApis } from "./apis/product";
 import { setAllProduct } from "./store/features/products";
 import CheckoutPage from "./pages/checkout";
 import OrderSuccessPage from "./pages/order/Success";
+import { IProduct } from "./types";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -20,9 +21,15 @@ function App() {
     useEffect(() => {
         ProductApis.getAllProducts()
             .then((response) => {
-                dispatch(setAllProduct(response?.data));
+                dispatch(
+                    setAllProduct(
+                        response?.data?.filter(
+                            (item: IProduct) => item.status !== "inactive"
+                        )
+                    )
+                );
             })
-            .catch(() => { });
+            .catch(() => {});
     }, []);
 
     return (

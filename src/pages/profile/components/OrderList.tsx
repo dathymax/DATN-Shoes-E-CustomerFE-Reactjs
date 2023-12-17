@@ -58,7 +58,8 @@ const OrderListContent: FC<OrderListContentProps> = () => {
         <div className="col-span-4 bg-white p-5 rounded-lg">
             <FlexBetween className="mb-5">
                 <p className="text-2xl font-medium text-gray-600">
-                    Order ID: <span className="text-black">430960</span>
+                    Order ID:{" "}
+                    <span className="text-black">{order._id?.slice(0, 4)}</span>
                 </p>
                 <p className="px-4 py-1 rounded-lg bg-gray-100 font-medium">
                     {convertStatus(order?.status)}

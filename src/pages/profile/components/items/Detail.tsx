@@ -44,10 +44,10 @@ const OrderDetail = () => {
         navigate(`?${searchParams.toString()}`);
     };
 
-    const handleTransferProgress = () => {
+    const handleTransferProgress = (status: string) => {
         if (transactionId) {
             setLoading(true);
-            updateTransactionById(transactionId, { status: "packed" })
+            updateTransactionById(transactionId, { status: status })
                 .then(() => {
                     openNotiSuccess("Transfer progress");
                 })
@@ -75,15 +75,27 @@ const OrderDetail = () => {
                     Order ID: <span className="text-black">430960</span>
                 </Flex>
 
-                {product?.status === "delivering" && (
-                    <Button
-                        size="large"
-                        type="primary"
-                        onClick={handleTransferProgress}
-                    >
-                        Packed
-                    </Button>
-                )}
+                <Flex gap={30}>
+                    {product?.status !== "return" && (
+                        <Button
+                            size="large"
+                            type="default"
+                            onClick={() => handleTransferProgress("return")}
+                        >
+                            Refund
+                        </Button>
+                    )}
+
+                    {product?.status === "delivering" && (
+                        <Button
+                            size="large"
+                            type="primary"
+                            onClick={() => handleTransferProgress("packed")}
+                        >
+                            Packed
+                        </Button>
+                    )}
+                </Flex>
             </FlexBetween>
 
             <div className="info_group">

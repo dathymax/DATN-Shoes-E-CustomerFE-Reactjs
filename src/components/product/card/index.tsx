@@ -6,19 +6,21 @@ import { IProduct } from "../../../types";
 import { UPLOAD_URL } from "../../../constants";
 
 export interface IProductCardProps {
-    product?: IProduct
+    product?: IProduct;
 }
 
 const ProductCard: FC<IProductCardProps> = ({ product }) => {
     return (
-        <div className="relative">
+        <div className="relative transition-all hover:shadow-lg rounded-lg overflow-hidden">
             <img
                 src={`${UPLOAD_URL}/${product?.images?.[0]?.fileName}`}
                 alt="Product card image"
                 className="w-full h-[450px] object-cover rounded-lg"
             />
-            <p className="my-2 text-[13px]">{product?.name}</p>
-            <p className="text-[16px] font-bold">${product?.price}</p>
+            <div className="p-3">
+                <p className="my-2 text-[13px]">{product?.name}</p>
+                <p className="text-[16px] font-bold">${product?.price}</p>
+            </div>
 
             <div className="absolute top-0 p-2 w-full flex items-start justify-between">
                 <div>

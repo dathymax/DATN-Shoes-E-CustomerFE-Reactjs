@@ -7,7 +7,7 @@ import DescriptionParameter from "./Description";
 import { AiOutlineZoomIn, AiOutlineShoppingCart } from "react-icons/ai";
 import ProductCartQuickView from "../../../../components/product/cart/QuickView";
 import ProductCartSubTotal from "../../../../components/product/cart/SubTotal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { genUploadUrl } from "../../../../helpers";
 import { WishlistApis } from "../../../../apis/wishlist";
@@ -24,6 +24,8 @@ const ProductDetailParameter = () => {
     const item = useAppSelector((state) => state.products.item);
     const { openNotiError, openNotiSuccess } = useAppContext();
     const items = useAppSelector((state) => state.cart.items);
+    const [searchParams] = useSearchParams();
+    const quantity = searchParams.get("quantity") || 0;
 
     const handleOpen = () => {
         setOpen(true);
@@ -106,6 +108,7 @@ const ProductDetailParameter = () => {
                     block
                     type="primary"
                     onClick={handleOpen}
+                    disabled={Number(quantity) === 0}
                 >
                     <AiOutlineShoppingCart className="text-[16px]" />
                     <p className="font-medium">Add to cart</p>

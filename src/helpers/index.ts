@@ -72,6 +72,10 @@ export function genUploadUrl(fileName?: string) {
 
 export const convertStatus = (status?: string) => {
     switch (status) {
+        case "process":
+            return "Processing";
+        case "return":
+            return "Return";
         case "delivering":
             return "In Delivering";
         case "packed":
