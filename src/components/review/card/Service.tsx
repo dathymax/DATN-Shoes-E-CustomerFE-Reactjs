@@ -13,7 +13,7 @@ const ReviewService = () => {
         (prev: number, curr: IReview) => prev + Number(curr.rate),
         0
     );
-    const mediumRate = totalRate / items?.length;
+    const mediumRate = totalRate / items?.length || 0;
 
     const handleOpen = () => {
         setOpen(true);
